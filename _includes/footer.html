@@ -1,0 +1,18 @@
+<footer id="global-footer" role="contentinfo">
+  {% if page.date %}
+  <dl id="status-info">
+    <dt>Created</dt>
+    <dd><time class="created" itemprop="dateCreated">{{page.date | date_to_xmlschema }}</time></dd>
+    {% if page.updated %}
+    <dt>Updated</dt>
+    <dd><time class="modified" itemprop="dateModified">{{page.updated | date_to_xmlschema }}</time></dd>
+    {% endif %}
+  </dl>
+  {% endif %}
+  <address class="vcard" itemscope="" itemtype="http://schema.org/Person">
+    <p class="copyright">&copy; 2012 <span itemprop="name">{{ site.author }}.</span>
+      {% if site.twitter %}<a href="http://twitter.com/{{ site.twitter.id }}" class="icon twitter" itemprop="url"><img src="{{ site.url }}{{site.baseurl}}images/twitter-bird.png" alt="Twitter"></a>{% endif %}
+      <a href="{{ site.home.url }}" title="{{ site.home.title }}" class="icon home" itemprop="url"><img src="{{ site.url }}{{site.baseurl}}images/home.png" alt="Home"></a>
+      <span class="powerd">{{ site.powerd }}</span></p>
+  </address>
+</footer>

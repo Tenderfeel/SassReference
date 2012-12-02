@@ -1,0 +1,22 @@
+
+
+@mixin outliner($weight:3px, $color:green) {
+  $blur:0px;
+  text-shadow:
+   (-$weight) (-$weight) $blur $color,
+    $weight (-$weight) $blur $color,
+    $weight $weight $blur $color,
+   (-$weight) $weight $blur $color;
+}
+
+@mixin blot($color:green) {
+  text-shadow:
+  3px 3px 2px rgba($color, 0.3),
+  -3px 3px 2px rgba($color, 0.3),
+  3px -3px 2px rgba($color, 0.3),
+  -3px -3px 2px rgba($color, 0.3),    
+  3px 3px 1px rgba($color, 0.4),
+  -3px 3px 1px rgba($color, 0.5),
+  3px -3px 1px rgba($color, 0.5),
+  -3px -3px 1px rgba($color, 0.4);
+}

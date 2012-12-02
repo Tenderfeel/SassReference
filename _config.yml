@@ -1,18 +1,34 @@
 # standard jekyll configuration
 
-permalink: date
+#permalink: date
 pygments: true
-exclude: ['Rakefile', 'README.md', 'config.rb']
+exclude: ['Rakefile', 'README.md', 'config.rb', 'atom.xml', 'sitemap.xml']
 markdown: rdiscount
+baseurl: /SassReference/
+url: http://localhost:4000/SassReference
+
+#permalink: /:categories/:title.html
+
+#categories: [First]
 
 # configuration required for some pages
 
-domain: blog.example.com
-title: My Blog Title
-author: Me
-email: me@example.com
+#domain: blog.example.com
+title: Sassオレオレリファレンス
+author: Tenderfeel
+email: tenderfeel@gmail.com
+keywords: 'Sass, SASS, SCSS, sass, CSS, stylesheet, stylesheets, メタ言語, プリプロセッサ, リファレンス, 日本語リファレンス'
+powerd: 'Powerd by Mootools, Sass and Compass.'
+
+
+home:
+  url: 'http://tenderfeel.xsrv.jp/'
+  title: WebTecNote
 
 # configuration for ehancements, uncomment to enable
+
+twitter:
+  id: Tenderfeel
 
 # feedburner:
 #   id: feedburnerid

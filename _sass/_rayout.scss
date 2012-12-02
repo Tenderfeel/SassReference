@@ -1,0 +1,115 @@
+@charset "utf-8";
+
+/**-----------------------------------------------------------------------------
+    サイト内のレイアウトスタイル
+-----------------------------------------------------------------------------**/
+ 
+html {
+  color: #090909; 
+  background:image-url('bg.png');
+}
+
+#wrapper {
+  border-top: 4px solid #CE4DD6;
+  border-bottom: 4px solid #CE4DD6;
+}
+
+#global-header {
+  overflow: hidden;
+  padding: 1em;
+ 
+  .headerGroup {
+    overflow:hidden;
+  }
+  
+  .siteName {
+    margin: 0 2.5%;
+    text-shadow: 0 0 5px #F8F8F8, 0 0 5px #F8F8F8;
+    color: #CE4DD6;
+    @include outliner(1px, rgba(#F8F8F8, 0.6));
+    font-size:1.3em;
+    font-weight:bold;
+  }
+}
+
+#container {
+  width:100%;
+  margin:20px auto;
+  overflow:hidden;
+  position:relative;
+}
+
+#main {
+  margin: 0 2.5%;
+  width:70%;
+  float:right;
+  background: rgba(248, 248, 248, 0.7);
+  @include border-radius(1em);
+}
+
+#global-nav {
+  width: 22.5%;
+  float: left;
+  margin: 0 0 0 2.5%;
+  
+  h1 {
+    display:none;
+  }
+}
+
+#global-footer {
+  padding:0 1em;
+  overflow:hidden;
+  border-top: dashed 1px #999;
+  font-family:Helvetica, Verdana, sans-serif;
+  padding-left: 27.5%;
+  
+  .license {
+    @extend %cssfonts-12;
+  }
+  .copyright {
+  }
+  .icon {
+    & > img {
+      vertical-align:middle;
+      zoom:0.5;
+      border:0;
+    }
+  }
+}
+
+#status-info {
+  overflow:hidden;
+  
+  dt, dd {
+    float:left;
+    margin:0;
+    padding: 0.2em 0.5em;
+  }
+  dt {
+    color: white;
+    background: #AAA;
+    @include border-radius(0.3em 0 0 0.3em);
+  }
+  dd {
+    margin-right:10px;
+    background:#ccc;
+    @include border-radius(0 0.3em 0.3em 0);
+  }
+}
+
+
+a {
+  color: #ce4dd6;
+  
+  img {
+    border:solid 2px #ce4dd6;
+  }
+  
+  &:hover {
+    color: #E76E99;
+    img {
+      border:solid 2px #E76E99;
+    }
+  }
+}

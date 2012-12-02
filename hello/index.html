@@ -1,0 +1,206 @@
+---
+layout: page
+title: Hello Sass!
+description: Sassの導入で欠かせないインストールについて、手順をざっくり解説。GUIとCUIについて。
+date: 2012-12-1
+breadcrumb:
+- name: HOME
+  url: index.html
+- name: Hello Sass!
+  url: index.html
+---
+<ul xmlns="http://www.w3.org/1999/xhtml" class="toc" temprop="http://purl.org/dc/terms/tableOfContents">
+ <li><a href="#cui-or-gui">コマンドかアプリか</a></li>            
+ <li><a href="#sass-app">Sassに対応したアプリの紹介</a>
+   <ul>
+    <li><a href="#Scout">Scout</a></li>
+    <li><a href="#Compass-app">Compass.app</a></li>
+    <li><a href="#CodeKit">CodeKit</a></li>
+    <li><a href="#LiveReload">LiveReload</a></li>
+   </ul>
+ </li>
+ <li>
+   <a href="#cui-install">コマンドライン操作での導入方法</a>
+   <ul>
+     <li><a href="#cui-install-ruby">Rubyのインスール</a></li>
+     <li><a href="#cui-install-sass">Sassのインスール</a></li>
+     <li><a href="#prepare">ディレクトリとファイルの準備</a></li>
+     <li><a href="#compile">コンパイル</a></li>
+     <li><a href="#wath-mode">Watchモード</a>
+       <ul><li><a href="#try-watch">何か書いてみる</a></li></ul>
+     </li>
+   </ul>
+ </li>
+</ul>
+
+<section id="cui-or-gui">
+ <h1>コマンドかアプリか</h1>
+ <p>Sass（あるいは他のCSSメタ言語）を利用するときに立ちはだかる最初の難関はインストールです。</p>
+ <p>公式サイトではいずれもコマンドライン（CUI）での利用方法しかありませんが、最近はコンパイルをやっつけてくれるアプリケーションが色々とリリースされていますので、黒い画面が苦手という方はアプリケーションをインストールする方が楽だと思います。</p>
+</section>
+<section id="sass-app">
+ <h1>Sassに対応したアプリの紹介</h1>
+ <p>アプリを使えばRubyやSassのインストールをする必要がありません。<br>その代わりSassがバージョンアップした時はアプリが対応するまで待ちが生じます。
+</p>
+ <p>各アプリの導入については手順を紹介している記事にリンクを貼らせて頂きましたので、そちらをご覧ください。</p>
+ <section id="Scout">
+   <h2><a href="http://mhs.github.com/scout-app/" class="external-link" rel="nofollow">Scout</a></h2>
+   <p>SassとComapssを使うだけならScoutで十分だと思います。<br>
+                 コマンドラインよりも圧倒的に設定が分かりやすいです。</p>
+   <table>
+       <tr>
+         <th scope="col">OS</th>
+         <td>Mac, Win</td>
+       </tr>
+       <tr>
+         <th scope="col">対応</th>
+         <td>Sass, Compass</td>
+       </tr>
+        <tr>
+         <th scope="col">価格</th>
+         <td>Free</td>
+       </tr>
+   </table>
+   <ul class="bookmarks">
+     <li><a href="http://www.webcyou.com/?p=2280" class="external-link" rel="nofollow">web帳 | sassを簡単コンパイル GUIツール SCOUT</a></li>
+     <li><a href="http://css-happylife.com/archives/2012/0107_0000.php" class="external-link" rel="nofollow">【Sassを覚えよう！Vol.3】一番カンタンな環境構築（Scout編） - CSS HappyLife</a></li>
+     <li><a href="http://linker.in/journal/2011/09/compass-sass-scout.php" class="external-link" rel="nofollow">Compass / Sass の導入が簡単にできる Scout を試してみた｜linker journal｜linker</a></li>
+   </ul>
+ </section>
+ <section id="Compass-app">
+   <h2><a href="http://compass.handlino.com/" class="external-link" rel="nofollow">Compass.app</a></h2>
+   <p>その名の通りSass+Compassのためのアプリです。起動するとメニューバーに常駐するのが特徴。有料です。</p>
+   <table>
+       <tr>
+         <th scope="col">OS</th>
+         <td>Mac, Win, Linux</td>
+       </tr>
+       <tr>
+         <th scope="col">対応</th>
+         <td>Sass, Compass</td>
+       </tr>
+        <tr>
+         <th scope="col">価格</th>
+         <td>$10</td>
+       </tr>
+   </table>
+   <ul class="bookmarks">
+     <li>記事がありませんでした…orz</li>
+   </ul>
+ </section>
+ <section id="CodeKit">
+   <h2><a href="http://incident57.com/codekit/" class="external-link" rel="nofollow">CodeKit</a></h2>
+   <p>CUI嫌いなMacユーザーならこれ入れておけばおｋ。な高機能アプリ。<br>
+     メタ言語のコンパイルの他にMinifyとか画像の最適化とかもやれますが有料です。
+   </p>
+  <table>
+     <tr>
+       <th scope="col">OS</th>
+       <td>Mac（OS 10.7以上）</td>
+     </tr>
+     <tr>
+       <th scope="col">対応</th>
+       <td>SASS, Compass, LESS, Stylus, CoffeeScript, SLIM, HAML, Jade</td>
+     </tr>
+      <tr>
+       <th scope="col">価格</th>
+       <td>Mac $25</td>
+     </tr>
+ </table>
+   <ul class="bookmarks">
+     <li><a href="http://5509.me/log/codekit" class="external-link" rel="nofollow">フロントエンドの開発を加速するCodeKit  ::  5509</a></li>
+   </ul>
+ </section>
+ <section id="LiveReload">
+   <h2><a href="http://livereload.com/" class="external-link" rel="nofollow">LiveReload</a></h2>
+   <p>Scoutよりも高機能ですが有料です。タグ埋め込みorブラウザの拡張を入れることで自動リロードもしてくれます。<br>
+     Windowsはアルファなので無料みたいですが、いずれは有料になるのでしょう。</p>
+   <table>
+       <tr>
+         <th scope="col">OS</th>
+         <td>Mac(OS　10.6以上、64bitのみ), Win（XP以上）, Linux</td>
+       </tr>
+       <tr>
+         <th scope="col">対応</th>
+         <td>SASS, Compass, LESS, Stylus, CoffeeScript, IcedCoffeeScript, Eco, SLIM, HAML, Jade</td>
+       </tr>
+        <tr>
+         <th scope="col">価格</th>
+         <td>Mac $9.99</td>
+       </tr>
+   </table>
+   <ul class="bookmarks">
+     <li><a href="http://wp.graphact.com/2012/11/14/livereload-for-windows/" class="external-link" rel="nofollow">LiveReload for Windows を入れてみたよ | Numb.</a></li>
+     <li><a href="http://www.youtube.com/watch?v=EZ8vy_cNMVQ&feature=youtu.be" class="external-link" rel="nofollow">LiveReload Walkthrough　（自動リロードの動作を撮影した動画）</a></li>
+   </ul>
+ </section>
+</section>
+<article id="cui-install">
+           <h1>コマンドライン操作での導入方法</h1>
+           <section id="cui-install-ruby">
+           <h1>Rubyのインストール（Windowsのみ）</h1>
+           
+           <p class="warning">MacはRubyが既に入っているのでこの手順は必要ありません。<a href="#cui-install-sass">Sassのインストールへどうぞ。</a></p>
+           
+           <p>WindowsへのインストールはRubyInstallerを使うのが手っ取り早いです。</p>
+           <p><a href="http://rubyinstaller.org/" class="external-link" rel="nofollow"><img src="../images/hello/rubyinstaller.png" alt="RubyInstaller Logo"></a></p>
+           <p>ダウンロードページに進むとインストーラーのリンクがバージョンごとにリストアップされています。<br>
+             一番上をクリックすると最新バージョンのダウンロードが始まります。
+           </p>
+           <figure>
+             <a href="http://rubyinstaller.org/downloads/" class="external-link" rel="nofollow"><img src="../images/hello/rubyinstaller-download.png" alt="ダウンロードページ左上のインストーラー選択エリア"></a>
+             <figcaption>2012/12月時点でのデザイン</figcaption>
+           </figure>
+           
+           <p>exeファイルがダウンロードされるまで少し待ちます……<br>
+             <img src="../images/hello/rubyinstaller-exe.png" alt="exeアイコン"><br>
+                        ダウンロードが終わったらexeをダブルクリックして起動してください。
+           </p>
+           
+           <p>Rubyのセットアップが始まります。<br>
+             お馴染みのライセンス確認はI acceptにチェックを入れてNext。
+           </p>
+           <figure>
+            <img src="../images/hello/rubyinstaller-setup.png" alt="SetUp">
+           </figure>
+           
+           <p>ダウンロード先の選択になります。<br>
+             RubyのディレクトリまでにUnicode文字が含まれてるとエラーが出たりするので、ドライブ直下にしておくのが無難です。
+           </p>
+           <p>オプションの 「Add Ruby executables to your PATH」　はチェックしておくと後で自分でPATHの設定をしなくて済みます。
+            　「Associate .rb and .rbw files width this Ruby installation」　はファイルの関連付けなのでお好みで。</p>
+            <p>Installボタンを押すとインストールが始まります。</p>
+           <figure>
+            <img src="../images/hello/rubyinstaller-select.png" alt="Select install folder">
+           </figure>
+           
+           <figure>
+            <img src="../images/hello/rubyinstaller-end.png" alt="Install complete">
+           </figure>
+           
+           <p>インストールが終わったらコマンドプロンプトを立ち上げて確認します。<br>
+                            スタートメニューの検索で「cmd」と入力してEnterを押せば黒い画面が起動します。
+           </p>
+           <p>スタートメニューでRubyを探してStart Command Prompt with Rubyを実行してもいいです。
+             <img src="../images/hello/ruby-startmenu.png" alt="スタートメニューのRubyフォルダ"></p>
+           <p>
+             <code>ruby -v</code>と入力してEnterを押したとき、バージョンが表示されれば使える状態になっています。
+           </p>
+           <figure>
+             <img src="../images/hello/cmd.png" alt="コマンドプロンプトでRubyのバージョンを表示">
+           </figure>
+         </section>
+         <section id="cui-install-sass">
+           <h1>Sassのインストール</h1>
+           <p>Rubyのバージョン確認が出来ていれば、続けてSassのインストールができます。</p>
+           <p class="warning">Macの場合はここから始めてください。</p>
+           <p>コマンドプロンプト（win）またはターミナル（Mac）で<br>
+             次のコマンドを入力してEnterを押すと、Sassのインストールが始まります。</p>
+      <pre class="prettyprint"><code class="language-sh">gem install sass</code></pre>
+           <figure>
+            <img src="../images/hello/gem-install.png" alt="Install Sass gem">
+           </figure>
+           <p>コマンドが入力できるようになったらインストール完了です。</p>
+         </section>
+  <p>導入の説明はこれでおしまいです。</p>
+</article>

@@ -1,15 +1,24 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+<html itemscope="" itemid="" itemtype="http://schema.org/WebPage" xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title itemprop="name">{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
     {% if page.description %}
-    <meta name="description" content="{{ page.description }}" />
+    <meta name="description" content="{{ page.description }}">
     {% endif %}
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" media="screen" href="/stylesheets/screen.css" type="text/css" />
+    {% if site.keywords %}
+    <meta name="keywords" content="{{ site.keywords }}">
+    {% endif %}
+    <link href="{{ site.url }}{{site.baseurl}}css/style.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="{{ site.url }}{{site.baseurl}}css/print.css" media="print" rel="stylesheet" type="text/css">
+    <!--[if IE]>
+      <link href="{{ site.url }}{{site.baseurl}}css/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <![endif]-->
     {% if site.feedburner %}
     <link href="http://feeds.feedburner.com/{{ site.feedburner.id }}" rel="alternate" title="{{ site.title }}" type="application/atom+xml" />
     {% endif %}
+    
     {% if site.google_analytics %}
     <!-- google analytics async -->
     <script type="text/javascript">
@@ -24,19 +33,22 @@
     </script>
     {% endif %}
   </head>
-  <body>
-    <div id="page">
-      <div id="header">
-        <a href="/"><h1>{{ site.title }}</h1></a>
-      </div>
-      <div id="body">
-        {% if page.title %}<h1>{{ page.title }}</h1>{% endif %}
-        {{ content }}
-      </div>
+<body>
+  <div id="wrapper">
+  <!--[if lt IE 7]>
+  <p class="chromeframe">あなたがお使いのブラウザは<strong>計り知れない古さ</strong>です。 今すぐ<a href="http://browsehappy.com/">アップグレード</a> するか <a href="http://www.google.com/chromeframe/?redirect=true">Internet Explorer用のプラグイン</a>をインストールしましょう。世界が変わりますよ！ </p>
+  <![endif]-->
+    {% include header.html %}
+    <div id="container">
+      <div id="main">{{ content }}</div>
+      {% include nav.html %}
     </div>
-
-  {% if site.github %}
-    <a href="http://github.com/{{ site.github.username }}"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
+    {% include footer.html %}
+  </div>
+  <script src="//ajax.googleapis.com/ajax/libs/mootools/1.4.5/mootools-yui-compressed.js"></script>
+  <script src="{{ site.url }}{{site.baseurl}}js/main.js"></script>  
+{% if site.github %}
+  <a href="http://github.com/{{ site.github.username }}"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
   {% endif %}
-  </body>
+</body>
 </html>

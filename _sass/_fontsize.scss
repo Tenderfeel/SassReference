@@ -1,0 +1,153 @@
+@charset "utf-8";
+
+/**-----------------------------------------------------------------------------
+   Style of fonts
+-----------------------------------------------------------------------------**/
+/*
+YUI 3.7.3 (build 5687)
+Copyright 2012 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+/**
+ * Percents could work for IE, but for backCompat purposes, we are using keywords.
+ * x-small is for IE6/7 quirks mode.
+ */
+body {
+  font:13px/1.231 arial,helvetica,clean,sans-serif;
+  *font-size:small; /* for IE */
+  *font:x-small; /* for IE in quirks mode */
+}
+
+/**
+ * Nudge down to get to 13px equivalent for these form elements
+ */ 
+select,
+input,
+button,
+textarea {
+  font:99% arial,helvetica,clean,sans-serif;
+}
+
+/**
+ * To help tables remember to inherit
+ */
+table {
+  font-size:inherit;
+  font:100%;
+}
+
+/**
+ * Bump up IE to get to 13px equivalent for these fixed-width elements
+ */
+pre,
+code,
+kbd,
+samp,
+tt {
+  font-family:monospace;
+  *font-size:108%;
+  line-height:100%;
+}
+/* YUI CSS Detection Stamp */
+#yui3-css-stamp.cssfonts { display: none; }
+
+%cssfonts-10 {font-size:77%;}
+%cssfonts-11 {font-size:85%;}
+%cssfonts-12 {font-size:93%;}
+%cssfonts-13 {font-size:100%;}
+%cssfonts-14 {font-size:108%;}
+%cssfonts-15 {font-size:116%;}
+%cssfonts-16 {font-size:123.1%;}
+%cssfonts-17 {font-size:131%;}
+%cssfonts-18 {font-size:138.5%;}
+%cssfonts-19 {font-size:146.5%;}
+%cssfonts-20 {font-size:153.9%;}
+%cssfonts-21 {font-size:161.6%;}
+%cssfonts-22 {font-size:167%;}
+%cssfonts-23 {font-size:174%;}
+%cssfonts-24 {font-size:182%;}
+%cssfonts-25 {font-size:189%;}
+%cssfonts-26 {font-size:197%;}
+
+
+%jp-font-family {
+  font-family:"メイリオ", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "ＭＳ Ｐゴシック", Arial, Helvetica, sans-serif;
+}
+
+
+.pageName {
+    @extend %cssfonts-24;
+}
+
+
+h1 {
+    @extend %cssfonts-20;
+    margin: 0.67em 0;
+}
+
+h2 {
+    @extend %cssfonts-18;
+    margin: 0.83em 0;
+}
+
+h3 {
+    @extend %cssfonts-17;
+    margin: 1em 0;
+}
+
+h4 {
+    @extend %cssfonts-16;
+    margin: 1.33em 0;
+}
+
+h5 {
+    @extend %cssfonts-15;
+    margin: 1.67em 0;
+}
+
+h6 {
+    @extend %cssfonts-14;
+    margin: 2.33em 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @extend %jp-font-family;
+  color:#444;
+}
+
+.siteName {
+  @extend %jp-font-family;
+}
+
+
+small {
+    @extend %cssfonts-12;
+}
+
+sub,
+sup {
+  @extend %cssfonts-10;
+}
+
+button,
+input,
+select,
+textarea {
+  @extend %cssfonts-13;
+}
+
+section p{
+  @extend %cssfonts-14;
+}
+
+#global-nav,
+.toc,
+#global-footer {
+  @extend %cssfonts-12;
+}
+
+
+.warning {
+  color:crimson;
+}

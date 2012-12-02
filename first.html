@@ -1,0 +1,148 @@
+---
+layout: page
+title: はじめに
+description: Sassの公式サイトなどを参考に、構成などを再編集した日本語リファレンスのようなものです。
+date: 2012-12-1
+---
+
+ <!--tableOfContents--> 
+ <ul xmlns="http://www.w3.org/1999/xhtml" class="toc" temprop="http://purl.org/dc/terms/tableOfContents">
+  <li><a href="#first">Sassと愉快な仲間たち</a>
+    <ul>
+      <li><a href="#introduction-of-fellow">仲間の紹介</a></li>
+    </ul>
+  </li>
+  <li><a href="#recommended-reason">Sassがおすすめなたった一つの理由</a></li>
+  <li><a href="#try">さくっと手触りを試すには？</a></li>
+</ul>
+<section id="first">
+  <h1>Sassと愉快な仲間たち</h1>
+  <p>
+    2年前くらいはまだCSS3のモジュールなどは趣味レベルでしか使えないマニアックなものでしたが、スマホが幅を効かせるようになってからというもの、CSSを使う環境は随分と様変わりしています。
+  </p>
+
+  <p>
+    ブラウザがLevel3のモジュールに対応するようになると、CSSで出来ることが増えるのと引き換えに、表現するための記述は複雑なものになりました。
+    <br>
+    ただでさえスタイルシートファイルが巨大化傾向にあるのに、メンテナンスをしやすくするハウツーだとか、自動生成してくれるツールだとか、再利用しやすいフレームワークだとかの、素の仕様に沿った手法では追いつかない細かな面倒事が増えています。
+  </p>
+  <p>
+     <strong>ぶっちゃけ手書きがめんどうくさい！</strong>
+  </p>
+  <p>
+    ……そう思っていた時期が私にもありました。
+    <br>
+    この気持は私だけのものではなくて、世界共通だからメタ言語なんてものがあるんだろうと思います。
+  </p>
+  <p>
+    Sassと愉快な仲間たちは、CSSの書き方そのものを変えて、素では出来ないことを出来るようにして、とにかく便利に楽ちんにしてくれる、一度使ったら手放せなくなるとても便利な道具です。
+  </p>
+  <section id="introduction-of-fellow">
+    <h2>仲間の紹介</h2>
+    <p>今の所ネットでよく名前を見かけるメジャー勢力はこの３つ。</p>
+    <ul>
+      <li>
+       <a href="http://sass-lang.com/" class="external-link" rel="nofollow">Sass</a>
+        (<a href="https://github.com/nex3/sass">github</a>)
+      </li>
+      <li>
+        <a href="http://lesscss.org/" class="external-link" rel="nofollow">Less</a>
+        (<a href="https://github.com/cloudhead/less.js">github</a>)
+      </li>
+      <li>
+        <a href="http://learnboost.github.com/stylus/" class="external-link" rel="nofollow">Stylus</a>
+        (<a href="https://github.com/learnboost/stylus">github</a>)
+      </li>
+    </ul>
+    <p>
+      メタ言語としての機能は似たり寄ったりなのですが、要求される必要環境が大きく異なります。
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">言語</th>
+          <th scope="col">コンパイラ</th>
+          <th scope="col">拡張子</th>
+          <th scope="col">書き方</th>
+          <th scope="col">特徴</th>
+          <th scope="col">採用例</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td scope="row">Sass</td>
+          <td>Ruby</td>
+          <td>.sass .scss</td>
+          <td>２種類 （SASS, SCSS)</td>
+          <td>高機能</td>
+          <td><a href="http://ameblo.jp/ca-1pixel/entry-11009598050.html">スマホ版ピグ</a>、<a href="http://tech.naver.jp/blog/?p=885">NAVER</a></td>
+        </tr>
+        <tr>
+          <td scope="row">Less</td>
+          <td>JavaScript(node.js)</td>
+          <td>.less</td>
+          <td>１種類　(LESS)</td>
+          <td>お手軽</td>
+          <td><a href="http://twitter.github.com/bootstrap/">Twitter</a>、<a href="http://developer.hatenastaff.com/entry/2012/03/19/140051">はてな</a></td>
+        </tr>
+        <tr>
+          <td scope="row"> Stylus</td>
+          <td>JavaScript(node.js)</td>
+          <td>.styl</td>
+          <td>２種類 (STYL, CSS)</td>
+          <td>速記</td>
+          <td><a href="http://ameblo.jp/ca-1pixel/entry-11334309931.html">スマホ版Ameba</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <p>上の表を見ての通りSassだけRuby製です。<br>
+      Sassが他二つと決定的に違うのは、コンパイルでCSSファイルを生成しなければブラウザで確認することができないということです。<br>
+      とはいえクライアントサイドでのコンパイルはJavaScriptを使って動的に行うため、JavaScriptが動作しない環境やよりよいパフォーマンスなんかを考えると、最終的にはコンパイルが必須であると言えます。</p>
+      <p>LessとStylusでコンパイルをする場合、Node.jsが動作する環境が必要になります。<br>
+        RubyとNode.jsの環境構築はノンプログラマーな人ならどちらも小難しいことだと思いますが、どのメタ言語にも有志が開発しているGUIコンパイラがあるので安心してください。</p>
+  </section>
+</section>
+
+<section id="recommended-reason">
+  <h1>Sassがおすすめなたった一つの理由</h1>
+  <p>
+    各プロジェクトのGithubでpull requestとissuesを比較するとSassがダントツに少ないのです。<br>
+環境とかではなくその質の差で「Sassマジおすすめ」と言い張ります。
+            </p>
+</section>
+
+<section id="try">
+  <h1>手触りを試すには？</h1>
+  <p>公式サイトに用意されているオンラインツールを使えばその場でコンパイル結果が見れます。</p>
+  <figure>
+    <a href="http://sass-lang.com/try.html" rel="nofollow"><img src="images/first/try.png" alt="オンラインツールのスクリーンショット"></a>
+    <figcaption><a href="http://sass-lang.com/try.html" rel="nofollow">http://sass-lang.com/try.html</a></figcaption>
+  </figure>
+  <p>Sassに対応しているソーシャルコーディングサービスを使うのもお手軽です。<br>
+    <small>（ただしバージョンが最新でない場合があります）</small>
+  </p>
+  <figure>
+    <a href="http://jsdo.it/" rel="nofollow">
+      <img src="images/first/jsdoit.jpg" alt="jsdo.it">
+    </a>
+    <figcaption><a href="http://jsdo.it/" rel="nofollow">jsdo.it</a></figcaption>
+  </figure>
+  <figure>
+    <a href="http://jsfiddle.it/" rel="nofollow">
+      <img src="images/first/jsfiddle.jpg" alt="jsfiddle">
+    </a>
+    <figcaption><a href="http://jsdo.it/" rel="nofollow">jsfiddle</a></figcaption>
+  </figure>
+  <figure>
+    <a href="http://codepen.io/" rel="nofollow">
+      <img src="images/first/codepen.jpg" alt="codepen.io">
+    </a>
+    <figcaption><a href="http://codepen.io/" rel="nofollow">codepen.io</a></figcaption>
+  </figure>
+  <figure>
+    <a href="http://cssdeck.com/" rel="nofollow">
+      <img src="images/first/cssdeck.jpg" alt="CSSDeck">
+    </a>
+    <figcaption><a href="http://cssdeck.com/" rel="nofollow">CSSDeck</a></figcaption>
+  </figure>
+</section>

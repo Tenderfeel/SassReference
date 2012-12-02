@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+/**-----------------------------------------------------------------------------
+   Style of screen and projection.
+-----------------------------------------------------------------------------**/
+
+@import "compass/css3";
+@import "_mixin";
+
+@import "mixins/syntax";
+
+//normalize
+//フォントに関する指定は_fontsizeに移動
+@import "_normalize";
+
+//YUI3 CSSFontsベース
+@import "_fontsize";
+
+//サイトレイアウト
+@import "_rayout";
+
+//#main
+@import "_main";
+
+//#global-nav と　ナビゲーション関連
+@import "_nav";
