@@ -1,0 +1,310 @@
+---
+layout: page
+description: Sass3.2.1をベースに、とりあえずこれだけ覚えればSass使いと言える基本的な機能を紹介。
+---
+<section>
+    <h1>基本</h1>
+    <ul xmlns="http://www.w3.org/1999/xhtml" class="toc" temprop="http://purl.org/dc/terms/tableOfContents">
+        <li><a href="#import">@import</a>
+            <ul>
+                <li><a href="#import-rule">有効な条件</a></li>
+                <li><a href="#partial">ファイル名先頭にアンダースコアを付けるルール（partial）</a></li>
+                <li><a href="#multiple">複数指定</a></li>
+                <li><a href="#interpolation">変数と文字列補完</a></li>
+                <li><a href="#nested-import">@importのネスト</a></li>
+            </ul>
+        </li>
+        <li><a href="#comments">コメント</a></li>
+        <li><a href="#encodings">文字コードの指定</a>
+            <ul>
+                <li><a href="#windows-issue">Windows環境におけるRuby
+                    の外部エンコーディング問題</a></li>
+            </ul>
+        </li>
+        <li><a href="#nested-rules">ネスト</a>
+            <ul>
+                <li><a href="#nest-property">プロパティのネスト</a></li>
+                <li><a href="#referencing-parent-selectors">親のセレクタを参照する</a></li>
+            </ul>
+        </li>
+    </ul>
+</section>
+<section id="import">
+  <h1>@import</h1>
+   <p>CSSも300行を超えてくると分割したくなると思います。<br>
+   もともとCSSには @import で他のCSSファイルを読み込むことが出来ますが、 Sassの@importはオリジナルよりもちょっと便利になっています。</p>
+  <section id="import-rule">
+      <h2>有効な条件</h2>
+      <p>1. ファイル名に拡張子.cssがついている</p>
+<pre class="prettyprint" data-type="SCSS">
+<code>@import "foo.css";</code>
+</pre>
+      <p>2. ファイル名が http:// から始まっている</p>
+<pre class="prettyprint" data-type="SCSS">
+<code>@import "http://foo.com/bar";</code>
+</pre>
+      <p>3. url()が使用されている</p>
+<pre class="prettyprint" data-type="SCSS">
+<code>@import url(foo);</code>
+</pre>
+      <p>4. メディアクエリである</p>
+<pre class="prettyprint" data-type="SCSS">
+<code>@import "foo" screen;</code>
+</pre>
+      <p>いずれにも当てはまらない場合、Sassコンパイラは .scss か .sass のファイル名であるとみなし、load-path オプションで指定されたディレクトリを探します。</p>
+<pre class="prettyprint" data-type="SCSS">
+<code>@import 'foo';</code>
+</pre>
+      <p>上記のソースでは、foo.scss、foo.sass、_foo.sass、_foo.sassのどれかを指定したことになります。</p>
+  </section>
+    <section id="partial">
+      <h2>ファイル名先頭にアンダースコアを付けるルール（partial）</h2>
+        <p>.scss(.sass)ファイル名の先頭にアンダースコアを入れると、コンパイルしてもcss
+            ファイルが作成されないという仕様があります。</p>
+        <p>Sassではファイルを分割して管理するが、コンパイル後に生成されるCSSファイルは１つだけ。ということが出来るのでとても便利です。<br>
+            また、インポート専用ファイルの見分けがつきやすくなるという利点もあります。</p>
+
+        <p>前に書いていますが、読み込むときの@importでは拡張子とアンダーバーを省略することが出来ます。</p>
+<pre class="prettyprint" data-type="SCSS">
+<code>@import 'foo';
+@import '_hoge';</code>
+</pre>
+<p>が、拡張子を省略するだけに留めておいた方が見やすいと思います。</p>
+    </section>
+    <section id="multiple">
+       <h2>複数指定</h2>
+       <p>カンマでつなげてまとめて読み込んだりも出来る。</p>
+<pre class="prettyprint" data-type="SCSS">
+<code>@import "rounded-corners", "text-shadow";</code>
+</pre>
+    </section>
+    <section id="interpolation">
+        <h2>変数と文字列補完</h2>
+<p>文字列の出力として #{} が用意されていますが（後述）、<code>@improt</code>に対しても使用出来ます。</p>
+<pre class="prettyprint" data-type="SCSS"><code>//unqoteは関数です
+$family: unquote("Droid+Sans");
+@import url("http://fonts.googleapis.com/css?family=\#{$family}");
+</code></pre>
+<pre class="prettyprint result" data-type="Compiled CSS">
+<code>@import url("http://fonts.googleapis.com/css?family=Droid+Sans");</code>
+</pre>
+    </section>
+    <section id="nested-import">
+        <h2>@importのネスト</h2>
+        <p>普通はCSSファイルのトップレベルの位置で使う<code>@improt</code>ですが、SassではCSSルールおよび@media ルール内に含めることも可能です。</p><p>以下はIDセレクタ内で<code>@improt</code>を使う例です。</p>
+<pre class="prettyprint" data-type="_tags.scss"><code>#main {
+a {
+  color: red;
+}
+
+p {
+  margin:1em;
+}
+
+section > p {
+  margin:1em 0;
+}
+</code></pre>
+<pre class="prettyprint" data-type="style.scss"><code>#main {
+  @import "_tags";
+}
+</code></pre>
+<pre class="prettyprint result" data-type="style.css"><code>#main a {
+  color: red; }
+#main p {
+  margin: 1em; }
+#main section > p {
+  margin: 1em 0; }
+</code></pre>
+    <p>セレクタやメディアクエリの中で<code>@improt
+    </code>を使うと、インポートしたファイルの中身がセレクタにネストされた状態で出力されます。
+    </p>
+    </section>
+</section>
+<section id="comments">
+  <h1>コメント</h1>
+  <p>普通のCSSコメント /* */ とスラッシュ２本のコメント // が使えます。</p>
+  <p>CSSのコメントシンタックスで書かれたコメントはコンパイル後も出力されます。<br>
+   <small>（コンパイルのスタイル指定でcompressedを指定した場合は除去される）</small></p>
+  <p>スラッシュで書かれたコメントは何行書いても出力されません。<br>
+      コメントを書く前に同じキーを2回押すだけでいいのでとてもお手軽です。</p>
+<pre class="prettyprint" data-type="SCSS"><code>/**
+ *　ブロックコメント
+ */
+#main {
+  margin:0 auto;//中央に配置
+  width:900px;
+  color:#333;//ちょっと薄くする
+ 　
+  /*インラインコメント*/
+  & > section {
+    margin-bottom:40px;
+  }
+}
+</code></pre>
+</section>
+<section id="encodings">
+    <h1>文字コードの指定</h1>
+    <p>コメントやcontentに日本語を含める場合、ファイル先頭で<code>@charset</code>を使用してUTF-8
+        を設定します。</p>
+<pre class="prettyprint" data-type="SCSS">
+<code>@charset "utf-8";</code>
+</pre>
+    <p><code>@charset</code>の後に@import</code>が続く場合は、<code>@import</code>
+        で読み込まれるファイルにも影響します。</p>
+    <p>たとえば、以下のように<code>@charset</code>の下に<code>@import</code>で_header.scssと_footer.scssを読み込むと、_header
+        .scssと_footer.scssに<code>@charset "utf-8"</code>が書いてなくても日本語が使えるようになります。</p>
+<pre class="prettyprint" data-type="SCSS">
+<code>@charset "utf-8";
+@import "_header";
+@import "_footer";</code>
+</pre>
+<p class="note">※Ruby 1.8でSassを動作させる場合は、全てのファイルの先頭に@charsetが必要です。</p>
+    <section id="windows-issue">
+        <h3>Windows環境におけるRubyの外部エンコーディング問題</h3>
+        <p>WindowsでRubyを動かすと規定の外部エンコーディングが Windows-31J になるので「Invalid Windows-31J character…」というエラーがでるわけです。これはSassに限ったことではありません。</p>
+        <p>根本的な解決方法は、環境変数LANGの指定です。</p>
+        <p>コマンドを叩くか</p>
+<pre class="prettyprint" data-type="command">set LANG=ja_JP.utf8</pre>
+        <p>コントロールパネル→システム→環境変数の編集でLANGを追加する。<br>
+        （ユーザーとシステムはどちらでもいい）</p>
+        <figure>
+            <img src="{{site.url}}/images/basic/lang.png" alt="環境変数">
+        </figure>
+    </section>
+</section>
+<section id="nested-rules">
+    <h1>ネスト</h1>
+    <p>CSSで子要素を指定する時、親要素を都度書く必要がありますが、
+        Sassではその手順を省いて「入れ子」で表現することができます。</p>
+    <p>たとえば、</p>
+<pre class="prettyprint" data-type="HTML">
+&lt;nav id="global"&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;/li&gt;
+        ...
+    &lt;/ul&gt;
+&lt;/nav&gt;
+</pre>
+    <p>というHTMLをSassのネストを使って表現すると</p>
+<pre class="prettyprint" data-type="SCSS">
+#global{
+   ...
+  ul {
+     ...
+    li {
+       ...
+      a {
+        ...
+      }
+    }
+  }
+}
+</pre>
+    <p>という具合になります。</p>
+    <p>コンパイルすると</p>
+<pre class="prettyprint result" data-type="Compiled CSS">
+#global {
+ ...
+}
+#global ul {
+ ...
+}
+#global ul li {
+ ...
+}
+#global ul li a {
+ ...
+}
+</pre>
+<p>ネストした所が子孫セレクタに変換されます。</p>
+    <section id="nest-property">
+        <h2>プロパティのネスト</h2>
+        <p>ネストはプロパティでも利用できます。</p>
+<pre class="prettyprint" data-type="SCSS">
+.fakeshadow {
+  border: {
+    style: solid;
+    left: {
+      width: 4px;
+      color: #888;
+    }
+    right: {
+      width: 2px;
+      color: #ccc;
+    }
+  }
+}
+</pre>
+<pre class="prettyprint result" data-type="Compiled CSS">
+.fakeshadow {
+  border-style: solid;
+  border-left-width: 4px;
+  border-left-color: #888;
+  border-right-width: 2px;
+  border-right-color: #ccc;
+}</pre>
+        <p>ハイフネートをネストに置き換えられるだけなので、ショートハンドへの変換はされません。</p>
+
+    </section>
+    <section id="referencing-parent-selectors">
+      <h2>親のセレクタを参照する</h2>
+        <p>ネストを使っていると、親のセレクタを使いたくなるときが結構あります。</p>
+        <p>例えば<code>:hover</code>や<code>::before</code>を指定するときだとか、
+            ボタンのクラスに押された状態を表現する.activeというクラスが加わったときだとか。</p>
+        <p>Sassではネスト用のメタセレクタとして、親のセレクタを参照するための<code>&amp;</code>（小文字のアンバサンド）を用意しています。</p>
+        <p><code>&amp;</code>を使ってAタグでよく使う擬似クラスを書くと以下のようになります。</p>
+<pre class="prettyprint" data-type="SCSS">
+a {
+  font-weight: bold;
+  &:link { text-decoration:none; }
+  &:visited { color:purple; }
+  &:active { color:aqua; }
+  &:hover { text-decoration: underline; }
+  body.firefox & { font-weight: normal; }
+}
+</pre>
+<pre class="prettyprint result" data-type="Compiled CSS">
+a {
+  font-weight: bold; }
+  a:link {
+    text-decoration: none; }
+  a:visited {
+    color: purple; }
+  a:active {
+    color: aqua; }
+  a:hover {
+    text-decoration: underline; }
+</pre>
+    <p><code>&amp;</code>は親・子問わずどの位置にでも使えます。</p>
+<pre class="prettyprint" data-type="SCSS">
+a {
+  body.firefox & { font-weight: normal; }
+}
+</pre>
+<pre class="prettyprint result" data-type="Compiled CSS">
+body.firefox a {
+  font-weight: normal; }
+</pre>
+        <p>ネストの階層が深くなっても、<code>&amp;</code>がある位置までのセレクタがそのまま置換されます。</p>
+<pre class="prettyprint" data-type="SCSS">
+#main {
+  color: black;
+  a {
+    font-weight: bold;
+    &:hover { color: red; }
+  }
+}
+</pre>
+<pre class="prettyprint result" data-type="Compiled CSS">
+#main {
+  color: black; }
+  #main a {
+    font-weight: bold; }
+    #main a:hover {
+      color: red; }
+</pre>
+
+    </section>
+    <p>ネストはDOMツリーまで把握できる便利機能なんですが、行数が増えると逆に見づらくなったり、セレクタの文字数が大変なことになるので適度に使うのがミソです。</p>
+</section>

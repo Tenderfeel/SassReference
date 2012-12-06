@@ -2,148 +2,107 @@
 /**-----------------------------------------------------------------------------
    Style of screen and projection.
 -----------------------------------------------------------------------------**/
-.highlight {
-  background: #ffffff;
+.pln {
+  color: black;
 }
-.highlight .c {
-  color: #999988;
-  font-style: italic;
+
+@media screen {
+  .str {
+    color: #008800;
+  }
+
+  .kwd {
+    color: #000088;
+  }
+
+  .com {
+    color: #880000;
+  }
+
+  .typ {
+    color: #660066;
+  }
+
+  .lit {
+    color: #006666;
+  }
+
+  .pun, .opn, .clo {
+    color: #666600;
+  }
+
+  .tag {
+    color: #000088;
+  }
+
+  .atn {
+    color: #660066;
+  }
+
+  .atv {
+    color: #008800;
+  }
+
+  .dec, .var {
+    color: #660066;
+  }
+
+  .fun {
+    color: red;
+  }
 }
-.highlight .err {
-  color: #a61717;
-  background-color: #e3d2d2;
+@media print, projection {
+  .str {
+    color: #006600;
+  }
+
+  .kwd {
+    color: #006;
+    font-weight: bold;
+  }
+
+  .com {
+    color: #600;
+    font-style: italic;
+  }
+
+  .typ {
+    color: #404;
+    font-weight: bold;
+  }
+
+  .lit {
+    color: #004444;
+  }
+
+  .pun, .opn, .clo {
+    color: #444400;
+  }
+
+  .tag {
+    color: #006;
+    font-weight: bold;
+  }
+
+  .atn {
+    color: #440044;
+  }
+
+  .atv {
+    color: #006600;
+  }
 }
-.highlight .k, .highlight .o {
-  font-weight: bold;
+ol.linenums {
+  margin-top: 0;
+  margin-bottom: 0;
 }
-.highlight .cm {
-  color: #999988;
-  font-style: italic;
+
+li.L0, li.L1, li.L2, li.L3, li.L5, li.L6, li.L7, li.L8 {
+  list-style-type: none;
 }
-.highlight .cp {
-  color: #999999;
-  font-weight: bold;
-}
-.highlight .c1 {
-  color: #999988;
-  font-style: italic;
-}
-.highlight .cs {
-  color: #999999;
-  font-weight: bold;
-  font-style: italic;
-}
-.highlight .gd {
-  color: #000000;
-  background-color: #ffdddd;
-}
-.highlight .gd .x {
-  color: #000000;
-  background-color: #ffaaaa;
-}
-.highlight .ge {
-  font-style: italic;
-}
-.highlight .gr {
-  color: #aa0000;
-}
-.highlight .gh {
-  color: #999999;
-}
-.highlight .gi {
-  color: #000000;
-  background-color: #ddffdd;
-}
-.highlight .gi .x {
-  color: #000000;
-  background-color: #aaffaa;
-}
-.highlight .go {
-  color: #888888;
-}
-.highlight .gp {
-  color: #555555;
-}
-.highlight .gs {
-  font-weight: bold;
-}
-.highlight .gu {
-  color: #aaaaaa;
-}
-.highlight .gt {
-  color: #aa0000;
-}
-.highlight .kc, .highlight .kd, .highlight .kp, .highlight .kr {
-  font-weight: bold;
-}
-.highlight .kt {
-  color: #445588;
-  font-weight: bold;
-}
-.highlight .m {
-  color: #009999;
-}
-.highlight .s {
-  color: #d14;
-}
-.highlight .na {
-  color: #008080;
-}
-.highlight .nb {
-  color: #0086B3;
-}
-.highlight .nc {
-  color: #445588;
-  font-weight: bold;
-}
-.highlight .no {
-  color: #008080;
-}
-.highlight .ni {
-  color: #800080;
-}
-.highlight .ne, .highlight .nf {
-  color: #990000;
-  font-weight: bold;
-}
-.highlight .nn {
-  color: #555555;
-}
-.highlight .nt {
-  color: #000080;
-}
-.highlight .nv {
-  color: #008080;
-}
-.highlight .ow {
-  font-weight: bold;
-}
-.highlight .w {
-  color: #bbbbbb;
-}
-.highlight .mf, .highlight .mh, .highlight .mi, .highlight .mo {
-  color: #009999;
-}
-.highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .se, .highlight .sh, .highlight .si, .highlight .sx {
-  color: #d14;
-}
-.highlight .sr {
-  color: #009926;
-}
-.highlight .s1 {
-  color: #d14;
-}
-.highlight .ss {
-  color: #990073;
-}
-.highlight .bp {
-  color: #999999;
-}
-.highlight .vc, .highlight .vg, .highlight .vi {
-  color: #008080;
-}
-.highlight .il {
-  color: #009999;
+
+li.L1, li.L3, li.L5, li.L7, li.L9 {
+  background: #eeeeee;
 }
 
 /* normalize.css v1.0.1 | MIT License | git.io/normalize */
@@ -890,6 +849,9 @@ section, article {
 section section {
   margin-bottom: 30px;
 }
+section section:last-of-type {
+  margin-bottom: 0;
+}
 
 article > h1 {
   background: rgba(255, 255, 255, 0.5);
@@ -910,14 +872,44 @@ section img {
 section p > img {
   margin: 1em 0;
 }
-section pre.prettyprint {
-  border: dashed 1px #666;
+section pre {
   padding: 1em;
 }
-section pre.syntax {
+section .prettyprint {
+  margin-top: 30px;
   border: solid 1px #888;
-  padding: 1em;
-  background: #e7e7e7;
+  background: #eaeaea;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+section .prettyprint::before {
+  content: attr(data-type);
+  position: absolute;
+  top: -20px;
+  left: 0;
+  height: 20px;
+  line-height: 20px;
+  padding: 0 0.5em;
+  display: block;
+  background: #888;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-border-radius: 3px 3px 0 0;
+  -moz-border-radius: 3px 3px 0 0;
+  -ms-border-radius: 3px 3px 0 0;
+  -o-border-radius: 3px 3px 0 0;
+  border-radius: 3px 3px 0 0;
+}
+section pre.result {
+  background: #efefef;
+}
+section pre.syntax {
+  border: dashed 1px #666;
 }
 
 table {

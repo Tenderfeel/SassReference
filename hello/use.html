@@ -6,24 +6,14 @@ date: 2012-12-1
 ---
 
 <ul xmlns="http://www.w3.org/1999/xhtml" class="toc" temprop="http://purl.org/dc/terms/tableOfContents">
-  <li><a href="#prepare">ディレクトリを作る</a></li>
   <li><a href="#extension-rule">記法と拡張子のルール</a></li>
+    <li><a href="#prepare">ディレクトリを作る</a></li>
  <li><a href="#compile">コンパイル</a></li>
  <li><a href="#wath-mode">Watchモード</a>
    <ul><li><a href="#try-watch">何か書いてみる</a></li></ul>
  </li>
 </ul>
 
-<section id="prepare">
- <h1>ディレクトリを作る</h1>
- <p>インストール出来たらSassファイルを入れるディレクトリを作りましょう。<br>
-そのままsassというディレクトリ名が分かりやすくていいと思います。</p>
- <figure>
-   <img src="../images/hello/prepare-1.png" alt="Create directory of Sass">
-   <figcaption>サンプルのプロジェクトにディレクトリを作ってみた図</figcaption>
- </figure>
- <p>ディレクトリが出来たらさっそくSassファイルを作ります。</p>
-</section>
 <section id="extension-rule">
  <h1>記法と拡張子のルール</h1>
   <p>Sassには記法が２種類あって、その名称と同じ拡張子をファイルにつけるのが慣例になっています。<br>
@@ -90,6 +80,7 @@ date: 2012-12-1
     <dt>SCSS</dt>
     <dd>
       <p>Sassy CSSを略してSCSS。Sassはこちらの記法が今は一般的です。<br>
+        ぱっと見CSSとほぼ同じなのがお分かり頂けるでしょうか。素のCSSと似たような書き方をするのが特徴です。<br>
         CSS3の他にも古いIEのFilterやハック、ベンダー特有の構文もCSSの書き方そのまま利用できるので、初心者にもやさしく読みやすい記法です。</p>
      
     </dd>
@@ -99,9 +90,28 @@ date: 2012-12-1
       ブロックを表す中括弧と末尾のセミコロンを省略でき、タブまたはスペースで入れ子を表現するため、もともとそういう書き方に慣れている人はこちらの方が見やすく感じるかもしれません。<br>
       Mixinも省略できてしまうので、読み慣れてないと理解しづらく、SCSSよりも難易度は高めです。</p>
       </dd>
-   </dl> 
-  <p>Sassのコンパイラはファイルの拡張子で記法を判別しているので、拡張子scssのファイルの中ではSCSS記法しか使えません。<br>
-    １つのファイルの中に２つの記法を混在させるとエラーになりますが、 拡張子scssとsassのファイルを同時にコンパイルすることはできます。</p>
+   </dl>
+    <h3>ポイント</h3>
+  <ul>
+      <li><strong>拡張子と同じ記法しか使えない。</strong>（１つのファイルの中に２つの記法を混在させるとエラーになる）</li>
+      <li>拡張子が混在したファイル群は同時にコンパイルできる</li>
+      <li>SCSSとSASSは相互にコンバートできる</li>
+  </ul>
+    </section>
+
+    <section id="prepare">
+        <h1>ディレクトリを作る</h1>
+        <p>まずはファイルを入れるディレクトリを作りましょう。<br>
+            そのままsassというディレクトリ名が分かりやすくていいと思います。<br>
+        （ディレクトリには特にルールはないので好きな名前をつけても大丈夫です）</p>
+        <figure>
+            <img src="../images/hello/prepare-1.png" alt="Create directory of Sass">
+            <figcaption>サンプルのプロジェクトにディレクトリを作ってみた図</figcaption>
+        </figure>
+        <p>ディレクトリが出来たらさっそくSassファイルを作ります。</p>
+</section>
+    <section>
+        <h1>ファイルを作る</h1>
     <p>ここではSCSSの方で説明を進めますので、sassディレクトリにstyle.scss ファイルを作成してください。</p>
    <figure>
      <img src="../images/hello/prepare-2.png" alt="Create file of scss">
