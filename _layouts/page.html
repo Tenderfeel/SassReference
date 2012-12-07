@@ -10,7 +10,7 @@ layout: default
 <ul class="breadcrumb">
   {% for breadcrumb in page.breadcrumb %}
     <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-      <a href="{{site.url}}{{site.baseurl}}{{ breadcrumb.url }}" itemprop="url">
+      <a href="{{site.url}}/{{ breadcrumb.url }}" itemprop="url">
         <span itemprop="title">{{ breadcrumb.name }}</span>
       </a>
     </li>

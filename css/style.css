@@ -836,13 +836,30 @@ a:hover img {
   margin-top: 40px;
 }
 
+p {
+  line-height: 1.5;
+}
+p > code {
+  border: solid 1px #DDD;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 0.2em 0.4em;
+  margin: 0 0.3em;
+  -webkit-border-radius: 0.3em;
+  -moz-border-radius: 0.3em;
+  -ms-border-radius: 0.3em;
+  -o-border-radius: 0.3em;
+  border-radius: 0.3em;
+  color: #90F;
+}
+
 section, article {
   overflow: hidden;
   margin-bottom: 40px;
 }
 
 #main > section,
-#main > article {
+#main > article,
+#main > .masthead {
   margin: 0 30px 40px;
 }
 
@@ -859,9 +876,6 @@ article > h1 {
   margin-bottom: 40px;
 }
 
-section {
-  line-height: 1.5;
-}
 section > h1 {
   border-bottom: 1px dashed #B1AD9B;
 }
@@ -979,6 +993,20 @@ figcaption {
   text-decoration: none;
   padding: 5px 10px;
   display: block;
+}
+
+.breadcrumb {
+  margin: 20px 30px;
+  padding: 10px;
+  text-align: center;
+  background: rgba(219, 217, 221, 0.3);
+}
+.breadcrumb > li {
+  list-style: none;
+  display: inline-block;
+}
+.breadcrumb > li:not(:last-child)::after {
+  content: "\003e";
 }
 
 #global-nav {

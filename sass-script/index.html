@@ -1,0 +1,158 @@
+---
+layout: page
+title: SassScript
+description: Sassをより使いこなすのに欠かせないSassScriptの解説です。Sass3.2.1版。
+date: 2012-12-1
+breadcrumb:
+- name: HOME
+  url: index.html
+- name: SassScript
+  url: sass-script/index.html
+---
+<div class="masthead">
+   <p>SassScriptとは、素のCSSでは出来ない算術や、プログラミングではおなじみの変数や関数といった、Sassが拡張している部分のこと。これは場所を問わず様々なところで活用できます。</p>
+    <ul xmlns="http://www.w3.org/1999/xhtml" class="toc" temprop="http://purl.org/dc/terms/tableOfContents">
+    </ul>
+</div>
+<section id="variables">
+    <h1>変数：$</h1>
+    <p>プログラミングではおなじみの「変数」が最も簡単なSassScriptです。<br>とはいえ、ノンプログラマな方には馴染みが薄いと思うのでどういうものかというのを簡単に紹介します。</p>
+    <p>変数をざっくり言うと「好きなものを入れておける箱」です。<br>
+    Sassの変数にはCSSのプロパティで指定する時と同じ「値」を入れることができます。</p>
+    <p>Sassで変数を使うときの構文は</p>
+    <pre class="syntax">$名前:値;</pre>
+    <p>です。</p>
+    <p>たとえばscssファイルに</p>
+<pre class="prettyprint"
+     data-type="SCSS"><code>$width: 960px;</code></pre>
+    <p>と書くと、「<code>$width</code>という名前の変数に、960pxという値を入れておく」という意味になります。<br>
+    変数に値を入れる時はCSSのプロパティに値を指定するのと同じ書き方をします。</p>
+    <p>名前が<code>$width</code>なので、この変数を横幅の指定で使ってみることにします。</p>
+<pre class="prettyprint" data-type="SCSS"><code>$width: 960px;
+
+#main {
+  width: $width;
+}</code></pre>
+    <p>使う時はそのまま値の代わりに変数を書くだけです。<br>
+        これで#mainのwidthには960pxが指定されたことになります。</p>
+    <p>もっと使ってみます。</p>
+<pre class="prettyprint" data-type="SCSS"><code>$width: 960px;
+
+header {
+  width:$width;
+  margin:0 auto;
+}
+
+#main {
+  width: $width;
+  margin:20px auto;
+}
+
+footer {
+  width:$width;
+  margin:0 auto;
+}</code></pre>
+    <p>同じ変数をheader、#main、footerのwidthに使ってみました。<br>
+    こういうソースに見覚えはありませんか？</p>
+<pre class="prettyprint result" data-type="Compiled CSS"><code>header {
+  width: 960px;
+  margin: 0 auto; }
+
+#main {
+  width: 960px;
+  margin: 20px auto; }
+
+footer {
+  width: 960px;
+  margin: 0 auto; }</code></pre>
+    <p>コンパイルすると変数を使った所に同じ値が出力されます。</p>
+    <p>変数の値を変えると、その変数を使っているプロパティの値が変更されます。<br>
+    サイトのレイアウトやデザインについての設定を変数にしてまとめておけば、諸々の変更作業の手間がかなり軽減されることでしょう。</p>
+    <p>使っているメタ言語が異なりますが、<a href="http://twitter.github.com/bootstrap/">Bootstrap</a>は変数の値を変えることで<a href="http://twitter.github.com/bootstrap/customize.html">カスタマイズ</a>ができるようになっています。</p>
+    <section id="variables-scope">
+        <h2>変数の有効範囲</h2>
+        <p>変数には有効範囲があります。<br>
+            前の例ではファイルの中のトップレベルの位置で<code>$width</code>という変数を書いた（という想定でした）ので、その下にあるheader、#main、footer全てで使うことができていました。 <br>
+        波カッコの中で変数を定義するとどうなるかというと、そのカッコの中が有効範囲になります。</p>
+        <p>
+        トップレベルで定義されたものを<strong>グローバル変数</strong>、波括弧の中で定義されたものを<strong>ローカル変数</strong>と呼びます。</p>
+        <p>以下は前のサンプルに新しいローカル変数<code>$color</code>を追加したものです。</p>
+<pre class="prettyprint" data-type="SCSS"><code>$width: 960px;
+
+header {
+  width:$width;
+  margin:0 auto;
+}
+
+#main {
+  $color:#333;   //<- New!
+  width: $width;
+  margin:20px auto;
+  color: $color; //<- Use!
+}
+
+footer {
+  width:$width;
+  margin:0 auto;
+  color: $color; //<- Use!
+}</code></pre>
+        <p>これをコンパイルするとfooterで変数を使用しているところで<q>Undefined variable: "$color"</q>というエラーが出ます。</p>
+        <p>#mainで定義した<code>$color</code>は、#mainのローカル変数となっているため波括弧の外からはアクセスできませんが、ネストではどれだけ入れ子が深くなっても利用することができます。</p>
+<pre class="prettyprint" data-type="SCSS"><code>$width: 960px;
+
+header {
+  width:$width;
+  margin:0 auto;
+}
+
+#main {
+  $color:#333;
+  width: $width;
+  margin:20px auto;
+  color: $color; //<- Use!
+
+  section {
+    p {
+      color: $color; //<- Use!
+
+      a:link {
+        color: $color;//<- Use!
+      }
+    }
+  }
+
+  blockquote {
+    color: $color; //<- Use!
+  }
+}
+
+footer {
+  width:$width;
+  margin:0 auto;
+}</code></pre>
+        <p>#mainでネストした中で乱用してみました。<code>a:link</code>が一番深いですが、問題なくコンパイルできます。</p>
+<pre class="prettyprint result" data-type="Compiled CSS"><code>header {
+  width: 960px;
+  margin: 0 auto; }
+
+#main {
+  width: 960px;
+  margin: 20px auto;
+  color: #333333; }
+  #main section p {
+    color: #333333; }
+    #main section p a:link {
+      color: #333333; }
+  #main blockquote {
+    color: #333333; }
+
+footer {
+  width: 960px;
+  margin: 0 auto; }</code></pre>
+
+    </section>
+
+    <section id="variables-calculate">
+        <h2>変数相手の計算</h2>
+    </section>
+</section>

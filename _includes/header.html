@@ -1,3 +1,7 @@
 <header id="global-header">
-  <h1 class="siteName"><a href="{{ site.url }}">{{ site.title }}</a></h1>
+{%if page.title %}
+    <h1 class="siteName"><a href="{{ site.url }}">{{ site.title }}</a></h1>
+{% else %}
+    <p class="siteName"><a href="{{ site.url }}">{{ site.title }}</a></p>
+{% endif %}
 </header>

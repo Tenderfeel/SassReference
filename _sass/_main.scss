@@ -7,13 +7,28 @@
   margin-top:40px;
 }
 
+p {
+  line-height: 1.5;
+  & > code {
+    border: solid 1px #DDD;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 0.2em 0.4em;
+    margin: 0 0.3em;
+    @include border-radius(0.3em);
+    color: #90F;
+  }
+
+}
+
+
 section, article {
   overflow: hidden;
   margin-bottom:40px;
 }
 
 #main > section,
-#main > article {
+#main > article,
+#main > .masthead {
   margin:0 30px 40px;
 }
 
@@ -33,7 +48,6 @@ article {
 }
 
 section {
-  line-height: 1.5;
   
   & > h1 {
     border-bottom: 1px dashed #B1AD9B;
@@ -141,5 +155,20 @@ figcaption {
     text-decoration:none;
     padding:5px 10px;
     display:block;
+  }
+}
+
+.breadcrumb {
+  margin: 20px 30px;
+  padding: 10px;
+  text-align:center;
+  background:rgba(#DBD9DD, 0.3);
+
+  & > li {
+    list-style: none;
+    display:inline-block;
+    &:not(:last-child)::after {
+      content:"\003e";
+    }
   }
 }
