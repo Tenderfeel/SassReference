@@ -18,8 +18,24 @@ p {
     color: #90F;
   }
 
+  small {
+    @extend %cssfonts-11;
+    color:#666;
+  }
+
 }
 
+q {
+  margin:0 0.5em;
+  &.error {
+    color:crimson;
+  }
+  &::before,
+  &::after {
+    content:"\0022";
+    color:#000;
+  }
+}
 
 section, article {
   overflow: hidden;
@@ -62,6 +78,11 @@ section {
   p > img {
     margin:1em 0;
   }
+
+  li {
+    margin:0.5em 0;
+  }
+
   pre {
     padding: 1em;
   }
@@ -106,7 +127,9 @@ tbody th {
   background:#E9E9E9;
 }
 
-
+th {
+  white-space: nowrap;
+}
 th, td {
   padding:5px;
   border: solid 1px #aaa;

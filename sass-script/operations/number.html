@@ -1,0 +1,110 @@
+---
+layout: page
+title: 数値の操作 - SassScript
+description: SassScriptがサポートする数値に関する操作についてまとめています。Sass3.2.1版。
+date: 2012-12-1
+breadcrumb:
+- name: HOME
+  url: index.html
+- name: SassScript
+  url: sass-script/index.html
+- name: 数値の操作
+  url: operations/number.html
+---
+<div class="masthead">
+   <p>SassScriptがサポートする数値の操作について。</p>
+    <ul xmlns="http://www.w3.org/1999/xhtml" class="toc" temprop="http://purl.org/dc/terms/tableOfContents">
+        <li><a href="../#data-types">データ型</a></li>
+        <li><a href="../#variables">変数</a>
+            <ul>
+                <li><a href="../#variables-scope">変数の有効範囲</a></li>
+            </ul>
+        </li>
+        <li><strong>数値の操作</strong>
+            <ul>
+                <li><a href="#division-and-slash">割り算とスラッシュ</a></li>
+                <li><a href="#unit-function">単位を扱う関数</a></li>
+            </ul>
+        </li>
+        <li><a href="./string.html">文字列の操作</a>
+            <ul>
+                <li><a href="./string.html#quote-function">引用符の有無を操作する</a></li>
+            </ul>
+        </li>
+        <li><a href="../interpolation.html">補完：#{}</a>
+            <ul>
+                <li><a href="../interpolation.html#interpolation-at-rules">@規則での利用</a></li>
+                <li><a href="../interpolation.html#interpolation-attribute-selector">属性セレクタでの利用</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<section id="number-operations">
+    <h1>数値の操作</h1>
+    <p>Sassファイルの中では数値型の値に記号を使うことで計算をすることができます。<br>
+    計算で使える記号は<code>+</code>（プラス：足す）、 <code>-</code>（ハイフン：引く）、 <code>*</code>（アスタリスク：掛ける）、 <code>/</code>（スラッシュ：割る）、 <code>%</code>（パーセント：割った余りを求める）です。</p>
+    <p>次のソースは「#barを#fooより10px大きくする」という指定に足し算を使用したものです。</p>
+<pre class="prettyprint" data-type="SCSS"><code>$width:100px;
+
+#foo {
+  width:$width;
+}
+
+#bar {
+  width:$width + 10;
+}</code></pre>
+    <p>10足す所で単位を省略していますが、変数<code>$width</code>に代入した100pxという値が単位つきなので、コンパイルすると110pxという値で出力されます。<br>数値型には色々な単位をつけることができますが、複数の単位を混ぜて計算することはできません。</p>
+    <p>前のソースの10足している所に<code>em</code>という単位をつけてコンパイルをしてみると、</p>
+<pre class="prettyprint" data-type="SCSS"><code>#bar {
+  width:$width + 10em;
+}</code></pre>
+    <p><q class="error">Incompatible units: 'em' and 'px'.</q>というエラーになってしまいます。</p>
+    <p><code>+</code>（プラス）を<code>/</code>（スラッシュ）にするとエラーの文言が<q class="error">10px/em isn't a valid CSS value</q>に変わります。</p>
+<pre class="prettyprint" data-type="SCSS"><code>#bar {
+  width:$width / 10em;
+}</code></pre>
+    <p>これはスラッシュがプロパティで使用出来る記号であるためです。</p>
+</section>
+<section id="division-and-slash">
+    <h1>割り算とスラッシュ</h1>
+   <p>Sassはスラッシュを割り算をする記号としてサポートしていますが、CSSでは半角のスラッシュを値を分離する方法として使うことが出来ます。
+   <p>スラッシュを使用した時、割り算になるかならないかには条件があり、以下のいずれかに当てはまるとそれは割り算として処理されます。</p>
+<ul>
+	<li>値が変数に格納されている</li>
+	<li>丸括弧の中で使われている</li>
+	<li>値が別の計算の一部になっている</li>
+</ul>
+   <p>以下は条件にあてはまる書き方をしてみたサンプルです。</p>
+<pre class="prettyprint" data-type="SCSS"><code>p {
+  //fontとborder-radiusでスラッシュを使うのは正しい書き方なので割り算ではない。
+  font: 10px/8px;
+  border-radius:10px 20px/20px;
+
+  $width: 1000px;
+  width: $width/2;            // 変数に対しての割り算 →　width: 500px;
+  height: (500px/2);          //丸括弧の中の割り算 →　height: 250px;
+  margin-left: 5px + 8px/2px; //割り算と足し算 →　margin-left: 9px;
+}</code></pre>
+   <p>これをコンパイルすると</p>
+<pre class="prettyprint result" data-type="Compiled CSS"><code>p {
+  font: 10px/8px;
+  border-radius: 10px 20px/20px;
+  width: 500px;
+  height: 250px;
+  margin-left: 9px; }</code></pre>
+    <p>fontとborder-radius以外のプロパティではすべて割り算が行われています。</p>
+</section>
+<section id="unit-function">
+    <h1>単位を扱う関数</h1>
+    <p>Sassの関数<code>unit</code>で単位の取り出し、<code>unitless</code>で単位の有無の判別ができます。
+    </p>
+<pre class="prettyprint" data-type="unit関数"><code>unit(100) => ""
+unit(100px) => "px"
+unit(3em) => "em"
+unit(10px * 5em) => "em*px"
+unit(10px * 5em / 30cm / 1rem) => "em*px/cm*rem"</code></pre>
+<pre class="prettyprint" data-type="unitless関数"><code>unitless(100) => true
+unitless(100px) => false</code></pre>
+</section>
+

@@ -1,0 +1,82 @@
+---
+layout: page
+title: 文字列の操作 - SassScript
+description: SassScriptがサポートする文字列に関する操作についてまとめています。Sass3.2.1版。
+date: 2012-12-1
+breadcrumb:
+- name: HOME
+  url: index.html
+- name: SassScript
+  url: sass-script/index.html
+- name: 文字列の操作
+  url: operations/string.html
+---
+<div class="masthead">
+   <p>SassScriptがサポートする文字列の操作について。</p>
+    <ul xmlns="http://www.w3.org/1999/xhtml" class="toc" temprop="http://purl.org/dc/terms/tableOfContents">
+        <li><a href="../#data-types">データ型</a></li>
+        <li><a href="../#variables">変数</a>
+            <ul>
+                <li><a href="../#variables-scope">変数の有効範囲</a></li>
+            </ul>
+        </li>
+        <li><a href="./number.html">数値の操作</a>
+            <ul>
+                <li><a href="./number.html#division-and-slash">割り算とスラッシュ</a></li>
+                <li><a href="./number.html#unit-function">単位を扱う関数</a></li>
+            </ul>
+        </li>
+        <li><strong>文字列の操作</strong>
+            <ul>
+                <li><a href="#quote-function">引用符の有無を操作する</a></li>
+            </ul>
+        </li>
+        <li><a href="../interpolation.html">補完：#{}</a>
+            <ul>
+                <li><a href="../interpolation.html#interpolation-at-rules">@規則での利用</a></li>
+                <li><a href="../interpolation.html#interpolation-attribute-selector">属性セレクタでの利用</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<section id="number-operations">
+    <h1>文字列の操作</h1>
+    <p><code>+</code>を文字列に使うと連結することができます。</p>
+<pre class="prettyprint" data-type="SCSS"><code>p {
+  cursor: e + -resize;
+}</code></pre>
+<pre class="prettyprint result" data-type="Compiled CSS"><code>p {
+  cursor: e-resize; }</code></pre>
+    <p>連結操作の中に引用符の有無が混在している場合は、プラス記号の左側（前）にある文字列の状態が維持されます。</p>
+
+<pre class="prettyprint" data-type="SCSS"><code>p::before {
+  content: "Foo " + Bar;
+  font-family: sans- + "serif";
+}</code></pre>
+<pre class="prettyprint result" data-type="Compiled CSS"><code>p::before {
+  content: "Foo Bar";
+  font-family: sans-serif; }</code></pre>
+    <p>引用符で囲まれた文字列に引用符なしの文字列を追加すると、引用符で囲まれた文字列に。<br>
+    引用符なしの文字列に引用符で囲まれた文字列を追加すると、引用符なしの文字列になります。</p>
+    <p><code>margin</code>や<code>padding</code>では<code>auto</code>や
+        <code>inherit</code>といった文字列と数値や計算が交じることがありますが、</p>
+<pre class="prettyprint" data-type="SCSS"><code>p {
+  margin: 3px + 4px auto;
+}</code></pre>
+    <p>正しく書いてあれば値と文字列はスペースで連結されます。</p>
+<pre class="prettyprint result" data-type="Compiled CSS"><code>p {
+  margin: 7px auto; }</code></pre>  　
+</section>
+<section id="quote-function">
+    <h1>引用符の有無を操作する</h1>
+    <p>関数の<code>unquote</code>で引用符の取り外し、<code>quote</code>で引用符の取り付けができます。</p>
+<pre class="prettyprint" data-type="SCSS"><code>
+p {
+    font-family:quote(ＭＳＰゴシック), unquote("sans-serif");
+}
+</code></pre>
+<pre class="prettyprint result" data-type="Compiled CSS"><code>p {
+  font-family: "ＭＳＰゴシック", sans-serif; }</code></pre>
+</section>
+

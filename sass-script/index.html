@@ -12,8 +12,101 @@ breadcrumb:
 <div class="masthead">
    <p>SassScriptとは、素のCSSでは出来ない算術や、プログラミングではおなじみの変数や関数といった、Sassが拡張している部分のこと。これは場所を問わず様々なところで活用できます。</p>
     <ul xmlns="http://www.w3.org/1999/xhtml" class="toc" temprop="http://purl.org/dc/terms/tableOfContents">
+        <li><a href="#data-types">データ型</a></li>
+        <li><a href="#variables">変数</a>
+            <ul>
+                <li><a href="#variables-scope">変数の有効範囲</a></li>
+            </ul>
+        </li>
+        <li><a href="operations/number.html">数値の操作</a>
+            <ul>
+                <li><a href="operations/number.html#division-and-slash">割り算とスラッシュ</a></li>
+                <li><a href="operations/number.html#unit-function">単位を扱う関数</a></li>
+            </ul>
+        </li>
+        <li><a href="operations/string.html">文字列の操作</a>
+            <ul>
+                <li><a href="operations/string.html#quote-function">引用符の有無を操作する</a></li>
+            </ul>
+        </li>
+        <li><a href="interpolation.html">補完：#{}</a>
+            <ul>
+                <li><a href="#interpolation-at-rules">@規則での利用</a></li>
+                <li><a href="#interpolation-attribute-selector">属性セレクタでの利用</a></li>
+            </ul>
+        </li>
     </ul>
 </div>
+<section id="data-types">
+    <h1>データ型</h1>
+    <p>プロパティに設定出来る値にはそれぞれ「型（タイプ）」があります。<br>
+        SassScriptは６つのデータ型をサポートしています。</p>
+
+    <table>
+        <thead>
+        <tr>
+            <th scope="col" colspan="2">名称</th>
+            <th scope="col">概要</th>
+            <th scope="col">例</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">数値</th>
+            <td>number</td>
+            <td>単位がついているものも含む</td>
+            <td>1.2、13、10px、1em、100%</td>
+        </tr>
+        <tr>
+            <th scope="row">文字列</th>
+            <td>string</td>
+            <td>引用符の有無は問わない</td>
+            <td>"foo"、'bar'、baz</td>
+        </tr>
+        <tr>
+            <th scope="row">色</th>
+            <td>color</td>
+            <td>色名、HEX、rgb、hslなどすべて</td>
+            <td>blue、#ffffff、rgba(0,0,0,0.6</td>
+        </tr>
+        <tr>
+            <th scope="row">真偽値</th>
+            <td>boolean</td>
+            <td>真＝true　偽＝false</td>
+            <td>true、false</td>
+        </tr>
+        <tr>
+            <th scope="row">null</th>
+            <td>null</td>
+            <td>何の値も含まれない状態。「ヌル」または「ナル」</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th scope="row">リスト</th>
+            <td>list</td>
+            <td>値をスペースやカンマで区切って並べたもの</td>
+            <td>0 auto、 10px 5px 15px 5px、Arial, Sans-serif</td>
+        </tr>
+        </tbody>
+    </table>
+    <p>データ型なんて大層な言い方をすると小難しそうな感じですが、使えるものに関しては素のCSSと同じです。<br>
+        上で挙げた中では真偽値とnullがScriptならではの型です。</p>
+
+    <section id="string-type">
+        <h2>string型</h2>
+        <p>CSSでは2種類の文字列を使用することができます。<br>
+        ひとつは <code>"Lucida Grande"</code> や <code>'http://sass-lang.com'</code>などの引用符がついているもの。<br>
+        もうひとつは、<code>bold</code>や<code>sans-serif</code>などの引用符がついていないものです。<br>Sassはどちらの文字列も認識するので、コンパイル後のCSSではSassファイルで使用したものがそのまま出力されます。</p>
+    </section>
+    <section>
+        <h2>list型</h2>
+        <p>marginやpaddingの指定でよくある<code>0 auto</code>や、フォントを指定するときの<code>Helvetica, Arial, sans-serif</code>といった、スペースやカンマで値を区切って並べたものがリスト型です。<br>
+            <small>（これを読んでいるあなたがプログラマなら配列をイメージしてください。ほとんど同じようなものです）</small><br>
+        では<code>font-weight:bold</code>や<code>margin:10px;</code>のようなものはどうなるのかというと、SassScriptは値が１つしかなくてもカウントしているので、これらも実際は「値が１つしかないリスト」となります。</p>
+        <p>リストそのものは機能を持っていませんが、Sassのリスト関数を使えば様々な操作ができるようになります。詳しくは関数のページに書いていますので、そちらを御覧ください。</p>
+    </section>
+</section>
+
 <section id="variables">
     <h1>変数：$</h1>
     <p>プログラミングではおなじみの「変数」が最も簡単なSassScriptです。<br>とはいえ、ノンプログラマな方には馴染みが薄いと思うのでどういうものかというのを簡単に紹介します。</p>
@@ -130,7 +223,8 @@ footer {
   width:$width;
   margin:0 auto;
 }</code></pre>
-        <p>#mainでネストした中で乱用してみました。<code>a:link</code>が一番深いですが、問題なくコンパイルできます。</p>
+        <p>#mainでネストした中で変数を乱用してみました。<code>a:link</code>が一番深いですが、問題なくコンパイルできます。<
+            /p>
 <pre class="prettyprint result" data-type="Compiled CSS"><code>header {
   width: 960px;
   margin: 0 auto; }
@@ -150,9 +244,5 @@ footer {
   width: 960px;
   margin: 0 auto; }</code></pre>
 
-    </section>
-
-    <section id="variables-calculate">
-        <h2>変数相手の計算</h2>
     </section>
 </section>
