@@ -23,11 +23,15 @@ breadcrumb:
                 <li><a href="./operations/#division-and-slash">割り算とスラッシュ</a></li>
             </ul>
         </li>
-        <li><a href="./operations/string.html">文字列の操作</a></li>
+        <li><a href="./operations/string.html">文字列の操作</a>
+            <ul>
+                <li><a href="./operations/string.html#quote-function">引用符の有無を操作する</a></li>
+            </ul>
+        </li>
         <li><strong>補完：#{}</strong>
             <ul>
-                <li><a href="#interpolation-at-rules">@規則での利用</a></li>
-                <li><a href="#interpolation-attribute-selector">属性セレクタでの利用</a></li>
+                <li><a href="#at-rules">@規則での利用</a></li>
+                <li><a href="#attribute-selector">属性セレクタでの利用</a></li>
             </ul>
         </li>
     </ul>
@@ -79,29 +83,29 @@ p:before {
 <pre class="prettyprint result" data-type="Compiled CSS"><code>p:before {
   content: "I ate  pies!"; }</code></pre>
     <p>このように、なにも出力されません。</p>
-    <section id="interpolation-at-rules">
-       <h2>@規則での利用</h2>
-        <p><code>#{}</code>はバージョン3.2から@規則（アットルール）でも使えるようになりました。<br>
+</section>
+<section id="at-rules">
+   <h1>@規則での利用</h1>
+    <p><code>#{}</code>はバージョン3.2から@規則（アットルール）でも使えるようになりました。<br>
 <code>@import</code>、<code>@charset</code>、<code>@font-face</code>、<code>@keyframes</code>、<code>@media</code>、 <code>@page</code>などがあります。</p>
-        <p><code>@media</code>で使うとこんな感じです。</p>
+    <p><code>@media</code>で使うとこんな感じです。</p>
 <pre class="prettyprint" data-type="SCSS"><code>$media: screen;
 $feature: -webkit-min-device-pixel-ratio;
 $value: 1.5;
 
 @media #{$media} and ($feature: $value) {
-  ...
+...
 }</code></pre>
-        <p><code>@keyframes</code>ではアニメーション名を変数にすることができます。</p>
+    <p><code>@keyframes</code>ではアニメーション名を変数にすることができます。</p>
 <pre class="prettyprint" data-type="SCSS"><code>@-webkit-keyframes $name {
-  ...
+...
 }</code></pre>
-    </section>
-    <section id="interpolation-attribute-selector">
-        <h2>属性セレクタでの利用</h2>
-        <p>属性セレクタの値に使うとエラーになってしまうバグがあったんですが、修正されました。<br>
-        引用符の有無にかかわらず使用することができます。</p>
+</section>
+<section id="attribute-selector">
+    <h1>属性セレクタでの利用</h1>
+    <p>属性セレクタの値に使うとエラーになってしまうバグがあったんですが、修正されました。<br>
+    引用符の有無にかかわらず使用することができます。</p>
 <pre class="prettyprint" data-type="SCSS"><code>input[type=#{$type}] {
-  ...
+...
 }</code></pre>
-    </section>
 </section>

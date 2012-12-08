@@ -1,6 +1,6 @@
 <nav id="global-nav">
   <ul class="nav">
-    <li><a href="/" data-target="#home">HOME</a></li>
+    <li><a href="{{ site.url }}/" data-target="#home">HOME</a></li>
     <li><a href="{{ site.url }}/first.html">はじめに</a>
       <ul>
         <li><a href="{{ site.url }}/first.html#first">Sassと愉快な仲間たち</a>
@@ -73,16 +73,29 @@
       <li>
           <a href="{{ site.url }}/sass-script/">SassScript</a>
         <ul>
-        <li><a href="">データ型</a></li>
-        <li><a href="">変数</a></li>
-        <li><a href="">数値の操作</a>
-          <ul>
-            <li><a href="">計算式とみなされる条件</a></li>
-            <li><a href="">プラス記号（＋）使用上の注意</a></li>
-          </ul>
+        <li><a href="{{ site.url }}/sass-script/#data-types">データ型</a></li>
+        <li><a href="{{ site.url }}/sass-script/#variables">変数</a>
+            <ul>
+                <li><a href="{{ site.url }}/sass-script/#variables-scope">変数の有効範囲</a></li>
+            </ul>
         </li>
-        <li><a href="">色の操作</a></li>
-        <li><a href="">文字列の操作</a></li>
+        <li><a href="{{ site.url }}/sass-script/operations/number.html">数値の操作</a>
+            <ul>
+                <li><a href="{{ site.url }}/sass-script/operations/number.html#division-and-slash">割り算とスラッシュ</a></li>
+                <li><a href="{{ site.url }}/sass-script/operations/number.html#unit-function">単位を扱う関数</a></li>
+            </ul>
+        </li>
+        <li><a href="{{ site.url }}/sass-script/operations/string.html">文字列の操作</a>
+            <ul>
+                <li><a href="{{ site.url }}/sass-script/operations/string.html#quote-function">引用符の有無を操作する</a></li>
+            </ul>
+        </li>
+        <li><a href="{{ site.url }}/sass-script/interpolation.html">補完：#{}</a>
+            <ul>
+                <li><a href="{{ site.url }}/sass-script/interpolation.html#at-rules">@規則での利用</a></li>
+                <li><a href="{{ site.url }}/sass-script/interpolation.html#attribute-selector">属性セレクタでの利用</a></li>
+            </ul>
+        </li>
         </ul>
       </li>
       <li><a href="">＠ルール</a>

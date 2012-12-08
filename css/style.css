@@ -750,6 +750,9 @@ html {
   font-size: 1.3em;
   font-weight: bold;
 }
+#global-header .siteName a {
+  text-decoration: none;
+}
 
 #container {
   width: 100%;

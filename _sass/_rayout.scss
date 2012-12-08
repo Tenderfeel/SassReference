@@ -28,6 +28,10 @@ html {
     @include outliner(1px, rgba(#F8F8F8, 0.6));
     font-size:1.3em;
     font-weight:bold;
+
+    a {
+      text-decoration:none;
+    }
   }
 }
 
