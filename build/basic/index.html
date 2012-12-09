@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html itemscope="" itemid="" itemtype="http://schema.org/WebPage" xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title itemprop="name">基本 - Sassオレオレリファレンス</title>
+    
+    <meta name="description" content="Sassを使うときに避けては通れない基本中の基本について。Sass 3.2.1をベースに書いています。">
+    
+    
+    <meta name="keywords" content="Sass, SASS, SCSS, sass, CSS, stylesheet, stylesheets, メタ言語, プリプロセッサ, リファレンス, 日本語リファレンス">
+    
+    <link href="/SassReference//css/style.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/SassReference//css/print.css" media="print" rel="stylesheet" type="text/css">
+    <!--[if IE]>
+      <link href="/SassReference//css/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="/SassReference//js/prettify/prettify.css" media="print" rel="stylesheet" type="text/css">
+    
+    
+    
+  </head>
+<body>
+  <div id="wrapper">
+  <!--[if lt IE 7]>
+  <p class="chromeframe">あなたがお使いのブラウザは<strong>計り知れない古さ</strong>です。 今すぐ<a href="http://browsehappy.com/">アップグレード</a> するか <a href="http://www.google.com/chromeframe/?redirect=true">Internet Explorer用のプラグイン</a>をインストールしましょう。世界が変わりますよ！ </p>
+  <![endif]-->
+    <header id="global-header">
+
+    <p class="siteName"><a href="/SassReference//">Sassオレオレリファレンス</a></p>
+
+</header>
+    <div id="container">
+      <div id="main"><h1 class="pageName">基本</h1>
+
+<div class="masthead">
+    <p>SassはCSSとよく似ていますが、CSSでは出来ないことが出来ます。<br>
+        このページでは、使うときに避けては通れない基本中の基本について解説しています。</p>
+    <ul xmlns="http://www.w3.org/1999/xhtml" class="toc" temprop="http://purl.org/dc/terms/tableOfContents">
+        <li><a href="#import">@import</a>
+            <ul>
+                <li><a href="#import-rule">有効な条件</a></li>
+                <li><a href="#partial">ファイル名先頭にアンダースコアを付けるルール（partial）</a></li>
+                <li><a href="#multiple">複数指定</a></li>
+                <li><a href="#interpolation">変数と文字列補完</a></li>
+                <li><a href="#nested-import">@importのネスト</a></li>
+            </ul>
+        </li>
+        <li><a href="#comments">コメント</a></li>
+        <li><a href="#encodings">文字コードの指定</a>
+            <ul>
+                <li><a href="#windows-issue">Windows環境におけるRuby
+                    の外部エンコーディング問題</a></li>
+            </ul>
+        </li>
+        <li><a href="#nested-rules">ネスト</a>
+            <ul>
+                <li><a href="#nest-property">プロパティのネスト</a></li>
+                <li><a href="#referencing-parent-selectors">親のセレクタを参照する</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<section id="import">
+  <h1>@import</h1>
+   <p>CSSも300行を超えてくると分割したくなると思います。<br>
+   もともとCSSには @import で他のCSSファイルを読み込むことが出来ますが、 Sassの@importはオリジナルよりもちょっと便利になっています。</p>
+  <section id="import-rule">
+      <h2>有効な条件</h2>
+      <p>1. ファイル名に拡張子.cssがついている</p>
+<pre class="prettyprint" data-type="SCSS">
+<code>@import "foo.css";</code>
+</pre>
+      <p>2. ファイル名が http:// から始まっている</p>
+<pre class="prettyprint" data-type="SCSS">
+<code>@import "http://foo.com/bar";</code>
+</pre>
+      <p>3. url()が使用されている</p>
+<pre class="prettyprint" data-type="SCSS">
+<code>@import url(foo);</code>
+</pre>
+      <p>4. メディアクエリである</p>
+<pre class="prettyprint" data-type="SCSS">
+<code>@import "foo" screen;</code>
+</pre>
+      <p>いずれにも当てはまらない場合、Sassコンパイラは .scss か .sass のファイル名であるとみなし、load-path オプションで指定されたディレクトリを探します。</p>
+<pre class="prettyprint" data-type="SCSS">
+<code>@import 'foo';</code>
+</pre>
+      <p>上記のソースでは、foo.scss、foo.sass、_foo.sass、_foo.sassのどれかを指定したことになります。</p>
+  </section>
+    <section id="partial">
+      <h2>ファイル名先頭にアンダースコアを付けるルール（partial）</h2>
+        <p>.scss(.sass)ファイル名の先頭にアンダースコアを入れると、コンパイルしてもcss
+            ファイルが作成されないという仕様があります。</p>
+        <p>Sassではファイルを分割して管理するが、コンパイル後に生成されるCSSファイルは１つだけ。ということが出来るのでとても便利です。<br>
+            また、インポート専用ファイルの見分けがつきやすくなるという利点もあります。</p>
+
+        <p>前に書いていますが、読み込むときの@importでは拡張子とアンダーバーを省略することが出来ます。</p>
+<pre class="prettyprint" data-type="SCSS">
+<code>@import 'foo';
+@import '_hoge';</code>
+</pre>
+<p>が、拡張子を省略するだけに留めておいた方が見やすいと思います。</p>
+    </section>
+    <section id="multiple">
+       <h2>複数指定</h2>
+       <p>カンマでつなげてまとめて読み込んだりも出来る。</p>
+<pre class="prettyprint" data-type="SCSS">
+<code>@import "rounded-corners", "text-shadow";</code>
+</pre>
+    </section>
+    <section id="interpolation">
+        <h2>変数と文字列補完</h2>
+<p>補完機能として<code>#{}</code>が用意されていますが（後述）、<code>@improt</code>に対しても使用出来ます。</p>
+<pre class="prettyprint" data-type="SCSS"><code>//unqoteは関数です
+$family: unquote("Droid+Sans");
+@import url("http://fonts.googleapis.com/css?family=\#{$family}");
+</code></pre>
+<pre class="prettyprint result" data-type="Compiled CSS">
+<code>@import url("http://fonts.googleapis.com/css?family=Droid+Sans");</code>
+</pre>
+    </section>
+    <section id="nested-import">
+        <h2>@importのネスト</h2>
+        <p>普通はCSSファイルのトップレベルの位置で使う<code>@improt</code>ですが、SassではCSSルールおよび@media ルール内に含めることも可能です。</p><p>以下はIDセレクタ内で<code>@improt</code>を使う例です。</p>
+<pre class="prettyprint" data-type="_tags.scss"><code>#main {
+a {
+  color: red;
+}
+
+p {
+  margin:1em;
+}
+
+section > p {
+  margin:1em 0;
+}
+</code></pre>
+<pre class="prettyprint" data-type="style.scss"><code>#main {
+  @import "_tags";
+}
+</code></pre>
+<pre class="prettyprint result" data-type="style.css"><code>#main a {
+  color: red; }
+#main p {
+  margin: 1em; }
+#main section > p {
+  margin: 1em 0; }
+</code></pre>
+    <p>セレクタやメディアクエリの中で<code>@improt
+    </code>を使うと、インポートしたファイルの中身がセレクタにネストされた状態で出力されます。
+    </p>
+    </section>
+</section>
+<section id="comments">
+  <h1>コメント</h1>
+  <p>普通のCSSコメント /* */ とスラッシュ２本のコメント // が使えます。</p>
+  <p>CSSのコメントシンタックスで書かれたコメントはコンパイル後も出力されます。<br>
+   <small>（コンパイルのスタイル指定でcompressedを指定した場合は除去される）</small></p>
+  <p>スラッシュで書かれたコメントは何行書いても出力されません。<br>
+      コメントを書く前に同じキーを2回押すだけでいいのでとてもお手軽です。</p>
+<pre class="prettyprint" data-type="SCSS"><code>/**
+ *　ブロックコメント
+ */
+#main {
+  margin:0 auto;//中央に配置
+  width:900px;
+  color:#333;//ちょっと薄くする
+ 　
+  /*インラインコメント*/
+  & > section {
+    margin-bottom:40px;
+  }
+}
+</code></pre>
+</section>
+<section id="encodings">
+    <h1>文字コードの指定</h1>
+    <p>コメントやcontentに日本語を含める場合、ファイル先頭で<code>@charset</code>を使用してUTF-8
+        を設定します。</p>
+<pre class="prettyprint" data-type="SCSS">
+<code>@charset "utf-8";</code>
+</pre>
+    <p><code>@charset</code>の後に@import</code>が続く場合は、<code>@import</code>
+        で読み込まれるファイルにも影響します。</p>
+    <p>たとえば、以下のように<code>@charset</code>の下に<code>@import</code>で_header.scssと_footer.scssを読み込むと、_header
+        .scssと_footer.scssに<code>@charset "utf-8"</code>が書いてなくても日本語が使えるようになります。</p>
+<pre class="prettyprint" data-type="SCSS">
+<code>@charset "utf-8";
+@import "_header";
+@import "_footer";</code>
+</pre>
+<p class="note">※Ruby 1.8でSassを動作させる場合は、全てのファイルの先頭に@charsetが必要です。</p>
+    <section id="windows-issue">
+        <h3>Windows環境におけるRubyの外部エンコーディング問題</h3>
+        <p>WindowsでRubyを動かすと規定の外部エンコーディングが Windows-31J になるので「Invalid Windows-31J character…」というエラーがでるわけです。これはSassに限ったことではありません。</p>
+        <p>根本的な解決方法は、環境変数LANGの指定です。</p>
+        <p>コマンドを叩くか</p>
+<pre class="prettyprint" data-type="command">set LANG=ja_JP.utf8</pre>
+        <p>コントロールパネル→システム→環境変数の編集でLANGを追加する。<br>
+        （ユーザーとシステムはどちらでもいい）</p>
+        <figure>
+            <img src="/SassReference//images/basic/lang.png" alt="環境変数">
+        </figure>
+    </section>
+</section>
+<section id="nested-rules">
+    <h1>ネスト</h1>
+    <p>CSSで子要素を指定する時、親要素を都度書く必要がありますが、
+        Sassではその手順を省いて「入れ子」で表現することができます。</p>
+    <p>たとえば、</p>
+<pre class="prettyprint" data-type="HTML">
+&lt;nav id="global"&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;/li&gt;
+        ...
+    &lt;/ul&gt;
+&lt;/nav&gt;
+</pre>
+    <p>というHTMLをSassのネストを使って表現すると</p>
+<pre class="prettyprint" data-type="SCSS">
+#global{
+   ...
+  ul {
+     ...
+    li {
+       ...
+      a {
+        ...
+      }
+    }
+  }
+}
+</pre>
+    <p>という具合になります。</p>
+    <p>コンパイルすると</p>
+<pre class="prettyprint result" data-type="Compiled CSS">
+#global {
+ ...
+}
+#global ul {
+ ...
+}
+#global ul li {
+ ...
+}
+#global ul li a {
+ ...
+}
+</pre>
+<p>ネストした所が子孫セレクタに変換されます。</p>
+    <section id="nest-property">
+        <h2>プロパティのネスト</h2>
+        <p>ネストはプロパティでも利用できます。</p>
+<pre class="prettyprint" data-type="SCSS">
+.fakeshadow {
+  border: {
+    style: solid;
+    left: {
+      width: 4px;
+      color: #888;
+    }
+    right: {
+      width: 2px;
+      color: #ccc;
+    }
+  }
+}
+</pre>
+<pre class="prettyprint result" data-type="Compiled CSS">
+.fakeshadow {
+  border-style: solid;
+  border-left-width: 4px;
+  border-left-color: #888;
+  border-right-width: 2px;
+  border-right-color: #ccc;
+}</pre>
+        <p>ハイフネートをネストに置き換えられるだけなので、ショートハンドへの変換はされません。</p>
+
+    </section>
+    <section id="referencing-parent-selectors">
+      <h2>親のセレクタを参照する</h2>
+        <p>ネストを使っていると、親のセレクタを使いたくなるときが結構あります。</p>
+        <p>例えば<code>:hover</code>や<code>::before</code>を指定するときだとか、
+            ボタンのクラスに押された状態を表現する.activeというクラスが加わったときだとか。</p>
+        <p>Sassではネスト用のメタセレクタとして、親のセレクタを参照するための<code>&amp;</code>（小文字のアンバサンド）を用意しています。</p>
+        <p><code>&amp;</code>を使ってAタグでよく使う擬似クラスを書くと以下のようになります。</p>
+<pre class="prettyprint" data-type="SCSS">
+a {
+  font-weight: bold;
+  &:link { text-decoration:none; }
+  &:visited { color:purple; }
+  &:active { color:aqua; }
+  &:hover { text-decoration: underline; }
+  body.firefox & { font-weight: normal; }
+}
+</pre>
+<pre class="prettyprint result" data-type="Compiled CSS">
+a {
+  font-weight: bold; }
+  a:link {
+    text-decoration: none; }
+  a:visited {
+    color: purple; }
+  a:active {
+    color: aqua; }
+  a:hover {
+    text-decoration: underline; }
+</pre>
+    <p><code>&amp;</code>は親・子問わずどの位置にでも使えます。</p>
+<pre class="prettyprint" data-type="SCSS">
+a {
+  body.firefox & { font-weight: normal; }
+}
+</pre>
+<pre class="prettyprint result" data-type="Compiled CSS">
+body.firefox a {
+  font-weight: normal; }
+</pre>
+        <p>ネストの階層が深くなっても、<code>&amp;</code>がある位置までのセレクタがそのまま置換されます。</p>
+<pre class="prettyprint" data-type="SCSS">
+#main {
+  color: black;
+  a {
+    font-weight: bold;
+    &:hover { color: red; }
+  }
+}
+</pre>
+<pre class="prettyprint result" data-type="Compiled CSS">
+#main {
+  color: black; }
+  #main a {
+    font-weight: bold; }
+    #main a:hover {
+      color: red; }
+</pre>
+
+    </section>
+    <p>ネストはDOMツリーまで把握できる便利機能なんですが、行数が増えると逆に見づらくなったり、セレクタの文字数が大変なことになるので適度に使うのがミソです。</p>
+</section>
+
+
+<ul class="breadcrumb">
+  
+    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+      <a href="/SassReference//index.html" itemprop="url">
+        <span itemprop="title">HOME</span>
+      </a>
+    </li>
+  
+    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+      <a href="/SassReference//basic/index.html" itemprop="url">
+        <span itemprop="title">基本</span>
+      </a>
+    </li>
+  
+</ul>
+
+<div id="back-to-pagetop"><a href="#">ページのトップに戻る</a></div>
+</div>
+      <nav id="global-nav">
+  <ul class="nav">
+    <li><a href="/SassReference//" data-target="#home">HOME</a></li>
+    <li><a href="/SassReference//first.html">はじめに</a>
+      <ul>
+        <li><a href="/SassReference//first.html#first">Sassと愉快な仲間たち</a>
+          <ul>
+            <li><a href="/SassReference//first.html#introduction-of-fellow">仲間の紹介</a></li>
+          </ul>
+        </li>
+        <li><a href="/SassReference//first.html#recommended-reason">Sass がおすすめなたった一つの理由</a></li>
+        <li><a href="/SassReference//first.html#try">さくっと手触りを試すには？</a></li>
+      </ul>
+    </li>
+    <li><a href="/SassReference//hello/">Hello Sass!</a>
+      <ul>
+       <li><a href="/SassReference//hello/#cui-or-gui">コマンドかアプリか</a></li>            
+       <li><a href="/SassReference//hello/#sass-app">Sassに対応したアプリの紹介</a>
+         <ul>
+          <li><a href="/SassReference//hello/#Scout">Scout</a></li>
+          <li><a href="/SassReference//hello/index.html#Compass-app">Compass.app</a></li>
+          <li><a href="/SassReference//hello/#CodeKit">CodeKit</a></li>
+          <li><a href="/SassReference//hello/#LiveReload">LiveReload</a></li>
+         </ul>
+       </li>
+       <li>
+         <a href="/SassReference//hello/#cui-install">コマンドライン操作での導入方法</a>
+         <ul>
+           <li><a href="/SassReference//hello/#cui-install-ruby">Rubyのインスール</a></li>
+           <li><a href="/SassReference//hello/#cui-install-sass">Sassのインスール</a></li>
+           
+         </ul>
+       </li>
+        <li><a href="/SassReference//hello/use.html">Sassを使ってみよう</a>
+          <ul>
+              <li><a href="/SassReference//hello/use.html#extension-rule">記法と拡張子のルール</a></li>
+            <li><a href="/SassReference//hello/use.html#prepare">ディレクトリを作る</a></li>
+           <li><a href="/SassReference//hello/use.html#compile">コンパイル</a></li>
+           <li><a href="/SassReference//hello/use.html#wath-mode">Watchモード</a>
+             <ul><li><a href="/SassReference//hello/use.html#try-watch">何か書いてみる</a></li></ul>
+           </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="/SassReference//basic/">基本</a>
+      <ul>
+          <li><a href="#import">@import</a>
+              <ul>
+                  <li><a href="/SassReference//basic/#import-rule">有効な条件</a></li>
+                  <li><a href="/SassReference//basic/#partial">ファイル名先頭にアンダースコアを付けるルール（partial）</a></li>
+                  <li><a href="/SassReference//basic/#multiple">複数指定</a></li>
+                  <li><a href="/SassReference//basic/#interpolation">変数と文字列補完</a></li>
+                  <li><a href="/SassReference//basic/#nested-import">@importのネスト</a></li>
+              </ul>
+          </li>
+          <li><a href="/SassReference//basic/#comments">コメント</a></li>
+          <li><a href="/SassReference//basic/#encodings">文字コードの指定</a>
+              <ul>
+                  <li><a href="/SassReference//basic/#windows-issue">Windows環境におけるRuby
+                      の外部エンコーディング問題</a></li>
+              </ul>
+          </li>
+          <li><a href="/SassReference//basic/#nested-rules">ネスト</a>
+              <ul>
+                  <li><a href="/SassReference//basic/#nest-property">プロパティのネスト</a></li>
+                  <li><a href="/SassReference//basic/#referencing-parent-selectors">親のセレクタを参照する</a></li>
+              </ul>
+          </li>
+      </ul>
+      </li>
+      <li>
+          <a href="/SassReference//sass-script/">SassScript</a>
+        <ul>
+        <li><a href="/SassReference//sass-script/#data-types">データ型</a></li>
+        <li><a href="/SassReference//sass-script/#variables">変数</a>
+            <ul>
+                <li><a href="/SassReference//sass-script/#variables-scope">変数の有効範囲</a></li>
+            </ul>
+        </li>
+        <li><a href="/SassReference//sass-script/operations/number.html">数値の操作</a>
+            <ul>
+                <li><a href="/SassReference//sass-script/operations/number.html#division-and-slash">割り算とスラッシュ</a></li>
+                <li><a href="/SassReference//sass-script/operations/number.html#unit-function">単位を扱う関数</a></li>
+            </ul>
+        </li>
+        <li><a href="/SassReference//sass-script/operations/string.html">文字列の操作</a>
+            <ul>
+                <li><a href="/SassReference//sass-script/operations/string.html#quote-function">引用符の有無を操作する</a></li>
+            </ul>
+        </li>
+        <li><a href="/SassReference//sass-script/interpolation.html">補完：#{}</a>
+            <ul>
+                <li><a href="/SassReference//sass-script/interpolation.html#at-rules">@規則での利用</a></li>
+                <li><a href="/SassReference//sass-script/interpolation.html#attribute-selector">属性セレクタでの利用</a></li>
+            </ul>
+        </li>
+        </ul>
+      </li>
+      <li><a href="">＠ルール</a>
+          <ul>
+            <li><a href="">@mixin</a></li>
+            <li><a href="">@function</a></li>
+            <li><a href="">@extend</a></li>
+            <li><a href="">@debug</a></li>
+              <li><a href="">@warn</a></li>
+          </ul>
+        </li>
+      <li><a href="">出力スタイルの変更</a></li>
+  </ul>
+</nav>
+    </div>
+    <footer id="global-footer" role="contentinfo">
+  
+  <dl id="status-info">
+    <dt>Created</dt>
+    <dd><time class="created" itemprop="dateCreated">2012-12-01</time></dd>
+    
+  </dl>
+  
+  <address class="vcard" itemscope="" itemtype="http://schema.org/Person">
+    <p class="copyright">&copy; 2012 <span itemprop="name">Tenderfeel.</span>
+      <a href="http://twitter.com/Tenderfeel" class="icon twitter" itemprop="url"><img src="/SassReference//images/twitter-bird.png" alt="Twitter"></a>
+      <a href="http://tenderfeel.xsrv.jp/" title="WebTecNote" class="icon home" itemprop="url"><img src="/SassReference//images/home.png" alt="Home"></a>
+      <span class="powerd">Powerd by Mootools, Sass and Compass.</span></p>
+  </address>
+</footer>
+  </div>
+  <script src="//ajax.googleapis.com/ajax/libs/mootools/1.4.5/mootools-yui-compressed.js"></script>
+  <script src="/SassReference//js/main.js"></script>
+  <script src="/SassReference//js/prettify/prettify.js"></script>
+
+</body>
+</html>

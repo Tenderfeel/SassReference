@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html itemscope="" itemid="" itemtype="http://schema.org/WebPage" xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title itemprop="name">はじめに - Sassオレオレリファレンス</title>
+    
+    <meta name="description" content="Sassの公式サイトなどを参考に、構成などを再編集した日本語リファレンスのようなものです。">
+    
+    
+    <meta name="keywords" content="Sass, SASS, SCSS, sass, CSS, stylesheet, stylesheets, メタ言語, プリプロセッサ, リファレンス, 日本語リファレンス">
+    
+    <link href="/SassReference//css/style.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/SassReference//css/print.css" media="print" rel="stylesheet" type="text/css">
+    <!--[if IE]>
+      <link href="/SassReference//css/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="/SassReference//js/prettify/prettify.css" media="print" rel="stylesheet" type="text/css">
+    
+    
+    
+  </head>
+<body>
+  <div id="wrapper">
+  <!--[if lt IE 7]>
+  <p class="chromeframe">あなたがお使いのブラウザは<strong>計り知れない古さ</strong>です。 今すぐ<a href="http://browsehappy.com/">アップグレード</a> するか <a href="http://www.google.com/chromeframe/?redirect=true">Internet Explorer用のプラグイン</a>をインストールしましょう。世界が変わりますよ！ </p>
+  <![endif]-->
+    <header id="global-header">
+
+    <p class="siteName"><a href="/SassReference//">Sassオレオレリファレンス</a></p>
+
+</header>
+    <div id="container">
+      <div id="main"><h1 class="pageName">はじめに</h1>
+
+ <!--tableOfContents--> 
+ <ul xmlns="http://www.w3.org/1999/xhtml" class="toc" temprop="http://purl.org/dc/terms/tableOfContents">
+  <li><a href="#first">Sassと愉快な仲間たち</a>
+    <ul>
+      <li><a href="#introduction-of-fellow">仲間の紹介</a></li>
+    </ul>
+  </li>
+  <li><a href="#recommended-reason">Sassがおすすめなたった一つの理由</a></li>
+  <li><a href="#try">さくっと手触りを試すには？</a></li>
+</ul>
+<section id="first">
+  <h1>Sassと愉快な仲間たち</h1>
+  <p>
+    2年前くらいはまだCSS3のモジュールなどは趣味レベルでしか使えないマニアックなものでしたが、スマホが幅を効かせるようになってからというもの、CSSを使う環境は随分と様変わりしています。
+  </p>
+  <p>
+    ブラウザがLevel3のモジュールに対応するようになると、CSSで出来ることが増えるのと引き換えに表現するための記述はより複雑になりました。<br>
+   モノによってはプログラミングと言ってもいいくらいのコード量になるのに、プログラミング言語ではないから素のままでは単純な計算すらできません。
+  </p>
+  <p>
+    Sassはメタ言語（またはプリプロセッサ）と呼ばれるものです。<br>
+    素では出来ないことを出来るようにして、とにかく便利に楽ちんにしてくれる、一度使ったら手放せなくなるとても便利な道具です。<br>
+   これまでにもしCSSを書きながら「計算したいな」とか「変数使えたらな」とか思った事がある人にはまさにうってつけだと思います。
+  </p>
+  <section id="introduction-of-fellow">
+    <h2>仲間の紹介</h2>
+    <p>今の所ネットでよく名前を見かけるメジャー勢力はこの３つ。</p>
+    <ul>
+      <li>
+       <a href="http://sass-lang.com/" class="external-link" rel="nofollow">Sass</a>
+        (<a href="https://github.com/nex3/sass">github</a>)
+      </li>
+      <li>
+        <a href="http://lesscss.org/" class="external-link" rel="nofollow">Less</a>
+        (<a href="https://github.com/cloudhead/less.js">github</a>)
+      </li>
+      <li>
+        <a href="http://learnboost.github.com/stylus/" class="external-link" rel="nofollow">Stylus</a>
+        (<a href="https://github.com/learnboost/stylus">github</a>)
+      </li>
+    </ul>
+    <p>
+      メタ言語としての機能は似たり寄ったりなのですが、要求される必要環境が大きく異なります。
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">言語</th>
+          <th scope="col">コンパイラ</th>
+          <th scope="col">拡張子</th>
+          <th scope="col">書き方</th>
+          <th scope="col">特徴</th>
+          <th scope="col">採用例</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td scope="row">Sass</td>
+          <td>Ruby</td>
+          <td>.sass .scss</td>
+          <td>２種類 （SASS, SCSS)</td>
+          <td>高機能</td>
+          <td><a href="http://ameblo.jp/ca-1pixel/entry-11009598050.html">スマホ版ピグ</a>、<a href="http://tech.naver.jp/blog/?p=885">NAVER</a></td>
+        </tr>
+        <tr>
+          <td scope="row">Less</td>
+          <td>JavaScript(node.js)</td>
+          <td>.less</td>
+          <td>１種類　(LESS)</td>
+          <td>お手軽</td>
+          <td><a href="http://twitter.github.com/bootstrap/">Twitter</a>、<a href="http://developer.hatenastaff.com/entry/2012/03/19/140051">はてな</a></td>
+        </tr>
+        <tr>
+          <td scope="row"> Stylus</td>
+          <td>JavaScript(node.js)</td>
+          <td>.styl</td>
+          <td>２種類 (STYL, CSS)</td>
+          <td>速記</td>
+          <td><a href="http://ameblo.jp/ca-1pixel/entry-11334309931.html">スマホ版Ameba</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <p>上の表を見ての通りSassだけRuby製です。<br>
+      Sassが他二つと決定的に違うのは、コンパイルでCSSファイルを生成しなければブラウザで確認することができないということです。<br>
+      とはいえクライアントサイドでのコンパイルはJavaScriptを使って動的に行うため、JavaScriptが動作しない環境やよりよいパフォーマンスなんかを考えると、最終的にはコンパイルが必須であると言えます。</p>
+      <p>LessとStylusでコンパイルをする場合、Node.jsが動作する環境が必要になります。<br>
+        RubyとNode.jsの環境構築はノンプログラマーな人ならどちらも小難しいことだと思いますが、どのメタ言語にも有志が開発しているGUIコンパイラがあるので安心してください。</p>
+  </section>
+</section>
+
+<section id="recommended-reason">
+  <h1>Sassがおすすめなたった一つの理由</h1>
+  <p>
+    各プロジェクトのGithubでpull requestとissuesを比較するとSassがダントツに少ないのです。<br>
+環境とかではなくその質の差で「Sassマジおすすめ」と言い張ります。
+            </p>
+</section>
+
+<section id="try">
+  <h1>手触りを試すには？</h1>
+  <p>公式サイトに用意されているオンラインツールを使えばその場でコンパイル結果が見れます。</p>
+  <figure>
+    <a href="http://sass-lang.com/try.html" rel="nofollow"><img src="images/first/try.png" alt="オンラインツールのスクリーンショット"></a>
+    <figcaption><a href="http://sass-lang.com/try.html" rel="nofollow">http://sass-lang.com/try.html</a></figcaption>
+  </figure>
+  <p>Sassに対応しているソーシャルコーディングサービスを使うのもお手軽です。<br>
+    <small>（ただしバージョンが最新でない場合があります）</small>
+  </p>
+  <figure>
+    <a href="http://jsdo.it/" rel="nofollow">
+      <img src="images/first/jsdoit.jpg" alt="jsdo.it">
+    </a>
+    <figcaption><a href="http://jsdo.it/" rel="nofollow">jsdo.it</a></figcaption>
+  </figure>
+  <figure>
+    <a href="http://jsfiddle.it/" rel="nofollow">
+      <img src="images/first/jsfiddle.jpg" alt="jsfiddle">
+    </a>
+    <figcaption><a href="http://jsdo.it/" rel="nofollow">jsfiddle</a></figcaption>
+  </figure>
+  <figure>
+    <a href="http://codepen.io/" rel="nofollow">
+      <img src="images/first/codepen.jpg" alt="codepen.io">
+    </a>
+    <figcaption><a href="http://codepen.io/" rel="nofollow">codepen.io</a></figcaption>
+  </figure>
+  <figure>
+    <a href="http://cssdeck.com/" rel="nofollow">
+      <img src="images/first/cssdeck.jpg" alt="CSSDeck">
+    </a>
+    <figcaption><a href="http://cssdeck.com/" rel="nofollow">CSSDeck</a></figcaption>
+  </figure>
+</section>
+
+
+
+<div id="back-to-pagetop"><a href="#">ページのトップに戻る</a></div>
+</div>
+      <nav id="global-nav">
+  <ul class="nav">
+    <li><a href="/SassReference//" data-target="#home">HOME</a></li>
+    <li><a href="/SassReference//first.html">はじめに</a>
+      <ul>
+        <li><a href="/SassReference//first.html#first">Sassと愉快な仲間たち</a>
+          <ul>
+            <li><a href="/SassReference//first.html#introduction-of-fellow">仲間の紹介</a></li>
+          </ul>
+        </li>
+        <li><a href="/SassReference//first.html#recommended-reason">Sass がおすすめなたった一つの理由</a></li>
+        <li><a href="/SassReference//first.html#try">さくっと手触りを試すには？</a></li>
+      </ul>
+    </li>
+    <li><a href="/SassReference//hello/">Hello Sass!</a>
+      <ul>
+       <li><a href="/SassReference//hello/#cui-or-gui">コマンドかアプリか</a></li>            
+       <li><a href="/SassReference//hello/#sass-app">Sassに対応したアプリの紹介</a>
+         <ul>
+          <li><a href="/SassReference//hello/#Scout">Scout</a></li>
+          <li><a href="/SassReference//hello/index.html#Compass-app">Compass.app</a></li>
+          <li><a href="/SassReference//hello/#CodeKit">CodeKit</a></li>
+          <li><a href="/SassReference//hello/#LiveReload">LiveReload</a></li>
+         </ul>
+       </li>
+       <li>
+         <a href="/SassReference//hello/#cui-install">コマンドライン操作での導入方法</a>
+         <ul>
+           <li><a href="/SassReference//hello/#cui-install-ruby">Rubyのインスール</a></li>
+           <li><a href="/SassReference//hello/#cui-install-sass">Sassのインスール</a></li>
+           
+         </ul>
+       </li>
+        <li><a href="/SassReference//hello/use.html">Sassを使ってみよう</a>
+          <ul>
+              <li><a href="/SassReference//hello/use.html#extension-rule">記法と拡張子のルール</a></li>
+            <li><a href="/SassReference//hello/use.html#prepare">ディレクトリを作る</a></li>
+           <li><a href="/SassReference//hello/use.html#compile">コンパイル</a></li>
+           <li><a href="/SassReference//hello/use.html#wath-mode">Watchモード</a>
+             <ul><li><a href="/SassReference//hello/use.html#try-watch">何か書いてみる</a></li></ul>
+           </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="/SassReference//basic/">基本</a>
+      <ul>
+          <li><a href="#import">@import</a>
+              <ul>
+                  <li><a href="/SassReference//basic/#import-rule">有効な条件</a></li>
+                  <li><a href="/SassReference//basic/#partial">ファイル名先頭にアンダースコアを付けるルール（partial）</a></li>
+                  <li><a href="/SassReference//basic/#multiple">複数指定</a></li>
+                  <li><a href="/SassReference//basic/#interpolation">変数と文字列補完</a></li>
+                  <li><a href="/SassReference//basic/#nested-import">@importのネスト</a></li>
+              </ul>
+          </li>
+          <li><a href="/SassReference//basic/#comments">コメント</a></li>
+          <li><a href="/SassReference//basic/#encodings">文字コードの指定</a>
+              <ul>
+                  <li><a href="/SassReference//basic/#windows-issue">Windows環境におけるRuby
+                      の外部エンコーディング問題</a></li>
+              </ul>
+          </li>
+          <li><a href="/SassReference//basic/#nested-rules">ネスト</a>
+              <ul>
+                  <li><a href="/SassReference//basic/#nest-property">プロパティのネスト</a></li>
+                  <li><a href="/SassReference//basic/#referencing-parent-selectors">親のセレクタを参照する</a></li>
+              </ul>
+          </li>
+      </ul>
+      </li>
+      <li>
+          <a href="/SassReference//sass-script/">SassScript</a>
+        <ul>
+        <li><a href="/SassReference//sass-script/#data-types">データ型</a></li>
+        <li><a href="/SassReference//sass-script/#variables">変数</a>
+            <ul>
+                <li><a href="/SassReference//sass-script/#variables-scope">変数の有効範囲</a></li>
+            </ul>
+        </li>
+        <li><a href="/SassReference//sass-script/operations/number.html">数値の操作</a>
+            <ul>
+                <li><a href="/SassReference//sass-script/operations/number.html#division-and-slash">割り算とスラッシュ</a></li>
+                <li><a href="/SassReference//sass-script/operations/number.html#unit-function">単位を扱う関数</a></li>
+            </ul>
+        </li>
+        <li><a href="/SassReference//sass-script/operations/string.html">文字列の操作</a>
+            <ul>
+                <li><a href="/SassReference//sass-script/operations/string.html#quote-function">引用符の有無を操作する</a></li>
+            </ul>
+        </li>
+        <li><a href="/SassReference//sass-script/interpolation.html">補完：#{}</a>
+            <ul>
+                <li><a href="/SassReference//sass-script/interpolation.html#at-rules">@規則での利用</a></li>
+                <li><a href="/SassReference//sass-script/interpolation.html#attribute-selector">属性セレクタでの利用</a></li>
+            </ul>
+        </li>
+        </ul>
+      </li>
+      <li><a href="">＠ルール</a>
+          <ul>
+            <li><a href="">@mixin</a></li>
+            <li><a href="">@function</a></li>
+            <li><a href="">@extend</a></li>
+            <li><a href="">@debug</a></li>
+              <li><a href="">@warn</a></li>
+          </ul>
+        </li>
+      <li><a href="">出力スタイルの変更</a></li>
+  </ul>
+</nav>
+    </div>
+    <footer id="global-footer" role="contentinfo">
+  
+  <dl id="status-info">
+    <dt>Created</dt>
+    <dd><time class="created" itemprop="dateCreated">2012-12-01</time></dd>
+    
+  </dl>
+  
+  <address class="vcard" itemscope="" itemtype="http://schema.org/Person">
+    <p class="copyright">&copy; 2012 <span itemprop="name">Tenderfeel.</span>
+      <a href="http://twitter.com/Tenderfeel" class="icon twitter" itemprop="url"><img src="/SassReference//images/twitter-bird.png" alt="Twitter"></a>
+      <a href="http://tenderfeel.xsrv.jp/" title="WebTecNote" class="icon home" itemprop="url"><img src="/SassReference//images/home.png" alt="Home"></a>
+      <span class="powerd">Powerd by Mootools, Sass and Compass.</span></p>
+  </address>
+</footer>
+  </div>
+  <script src="//ajax.googleapis.com/ajax/libs/mootools/1.4.5/mootools-yui-compressed.js"></script>
+  <script src="/SassReference//js/main.js"></script>
+  <script src="/SassReference//js/prettify/prettify.js"></script>
+
+</body>
+</html>

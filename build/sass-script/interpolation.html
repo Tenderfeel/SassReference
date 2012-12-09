@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html itemscope="" itemid="" itemtype="http://schema.org/WebPage" xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title itemprop="name">＃{} - SassScript - Sassオレオレリファレンス</title>
+    
+    <meta name="description" content="補完を行うための構文#{}についての解説。Sass3.2.1版。">
+    
+    
+    <meta name="keywords" content="Sass, SASS, SCSS, sass, CSS, stylesheet, stylesheets, メタ言語, プリプロセッサ, リファレンス, 日本語リファレンス">
+    
+    <link href="/SassReference//css/style.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/SassReference//css/print.css" media="print" rel="stylesheet" type="text/css">
+    <!--[if IE]>
+      <link href="/SassReference//css/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="/SassReference//js/prettify/prettify.css" media="print" rel="stylesheet" type="text/css">
+    
+    
+    
+  </head>
+<body>
+  <div id="wrapper">
+  <!--[if lt IE 7]>
+  <p class="chromeframe">あなたがお使いのブラウザは<strong>計り知れない古さ</strong>です。 今すぐ<a href="http://browsehappy.com/">アップグレード</a> するか <a href="http://www.google.com/chromeframe/?redirect=true">Internet Explorer用のプラグイン</a>をインストールしましょう。世界が変わりますよ！ </p>
+  <![endif]-->
+    <header id="global-header">
+
+    <p class="siteName"><a href="/SassReference//">Sassオレオレリファレンス</a></p>
+
+</header>
+    <div id="container">
+      <div id="main"><h1 class="pageName">＃{} - SassScript</h1>
+
+<div class="masthead">
+    <p>素のCSSとして認識させるための特別な構文。</p>
+    <ul xmlns="http://www.w3.org/1999/xhtml" class="toc" temprop="http://purl.org/dc/terms/tableOfContents">
+        <li><a href="./#data-types">データ型</a></li>
+        <li><a href="./#variables">変数</a>
+            <ul>
+                <li><a href="./#variables-scope">変数の有効範囲</a></li>
+            </ul>
+        </li>
+        <li><a href="./operations/number.html">数値の操作</a>
+            <ul>
+                <li><a href="./operations/#division-and-slash">割り算とスラッシュ</a></li>
+            </ul>
+        </li>
+        <li><a href="./operations/string.html">文字列の操作</a>
+            <ul>
+                <li><a href="./operations/string.html#quote-function">引用符の有無を操作する</a></li>
+            </ul>
+        </li>
+        <li><strong>補完：#{}</strong>
+            <ul>
+                <li><a href="#at-rules">@規則での利用</a></li>
+                <li><a href="#attribute-selector">属性セレクタでの利用</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<section id="interpolation">
+    <h1>補完：#{}</h1>
+    <p>Sassは補完を行うための構文として<code>#{}</code>を用意しています。</p>
+    <p>変数に入った文字列は通常は値として認識されてエラーが出てしまうので、そのままだとプロパティの値にしか使用できませんが、
+シャープ記号を前に置いた波括弧 <code>#{}</code>と組み合わせることでセレクタやプロパティ名にも使うことができるようになります。</p>
+    <p>以下はセレクタとプロパティに変数へ代入した文字列を使用するサンプルです。</p>
+<pre class="prettyprint" data-type="SCSS"><code>$name: note;
+$attr: border;
+
+p.#{$name} {
+  #{$attr}-color: blue;
+}</code></pre>
+    <p>コンパイルすると、変数を使用した所がきちんと文字列に置き換わっています。</p>
+<pre class="prettyprint result" data-type="Compiled CSS"><code>p.note {
+  border-color: blue; }</code></pre>
+    <p><code>#{}</code>を使えばプロパティの値にSassScriptを置くことができます。<br>
+        とはいえ、変数や関数、数式などをプロパティの値で使うことは普通にできるので、<code>#{}</code>が出てきた時は
+        Sassのコンパイラに<code>#{}</code>に入れたものを素のCSSとして扱われたいという時に使うことになります。</p>
+    <p>以下はfontプロパティで変数を使用する例です。</p>
+<pre class="prettyprint" data-type="SCSS"><code>p {
+  $font-size: 12px;
+  $line-height: 30px;
+  font: #{$font-size}/#{$line-height};
+}</code></pre>
+    <p>font
+        プロパティでスラッシュを使っても普通は割り算にはなりませんが、値が変数である場合は計算式の条件に当てはまってしまうため割り算になってしまいます。<br>
+    ですが変数を<code>#{}</code>に入れると数値として扱われるようになるため、コンパイル結果は期待通りのものになります。</p>
+<pre class="prettyprint result" data-type="Compiled CSS"><code>p {
+  font: 12px/30px; }</code></pre>
+    <p>クォートで囲った文字列の中で#{} を使うと…</p>
+<pre class="prettyprint" data-type="SCSS"><code>p:before {
+  content: "I ate #{5 + 10} pies!";
+}</code></pre>
+<pre class="prettyprint result" data-type="Compiled CSS"><code>p:before {
+  content: "I ate 15 pies!"; }</code></pre>
+   <p><code>#{}</code>で計算が行われた結果だけが反映されます。関数を使った場合も同様です。</p>
+   <p><code>#{}</code>に入れられた値や結果が空（nullや空文字など）の場合は</p>
+<pre class="prettyprint" data-type="SCSS"><code>$value: null;
+
+p:before {
+  content: "I ate #{$value} pies!";
+}</code></pre>
+
+<pre class="prettyprint result" data-type="Compiled CSS"><code>p:before {
+  content: "I ate  pies!"; }</code></pre>
+    <p>このように、なにも出力されません。</p>
+</section>
+<section id="at-rules">
+   <h1>@規則での利用</h1>
+    <p><code>#{}</code>はバージョン3.2から@規則（アットルール）でも使えるようになりました。<br>
+<code>@import</code>、<code>@charset</code>、<code>@font-face</code>、<code>@keyframes</code>、<code>@media</code>、 <code>@page</code>などがあります。</p>
+    <p><code>@media</code>で使うとこんな感じです。</p>
+<pre class="prettyprint" data-type="SCSS"><code>$media: screen;
+$feature: -webkit-min-device-pixel-ratio;
+$value: 1.5;
+
+@media #{$media} and ($feature: $value) {
+...
+}</code></pre>
+    <p><code>@keyframes</code>ではアニメーション名を変数にすることができます。</p>
+<pre class="prettyprint" data-type="SCSS"><code>@-webkit-keyframes $name {
+...
+}</code></pre>
+</section>
+<section id="attribute-selector">
+    <h1>属性セレクタでの利用</h1>
+    <p>属性セレクタの値に使うとエラーになってしまうバグがあったんですが、修正されました。<br>
+    引用符の有無にかかわらず使用することができます。</p>
+<pre class="prettyprint" data-type="SCSS"><code>input[type=#{$type}] {
+...
+}</code></pre>
+</section>
+
+
+<ul class="breadcrumb">
+  
+    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+      <a href="/SassReference//index.html" itemprop="url">
+        <span itemprop="title">HOME</span>
+      </a>
+    </li>
+  
+    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+      <a href="/SassReference//sass-script/index.html" itemprop="url">
+        <span itemprop="title">SassScript</span>
+      </a>
+    </li>
+  
+</ul>
+
+<div id="back-to-pagetop"><a href="#">ページのトップに戻る</a></div>
+</div>
+      <nav id="global-nav">
+  <ul class="nav">
+    <li><a href="/SassReference//" data-target="#home">HOME</a></li>
+    <li><a href="/SassReference//first.html">はじめに</a>
+      <ul>
+        <li><a href="/SassReference//first.html#first">Sassと愉快な仲間たち</a>
+          <ul>
+            <li><a href="/SassReference//first.html#introduction-of-fellow">仲間の紹介</a></li>
+          </ul>
+        </li>
+        <li><a href="/SassReference//first.html#recommended-reason">Sass がおすすめなたった一つの理由</a></li>
+        <li><a href="/SassReference//first.html#try">さくっと手触りを試すには？</a></li>
+      </ul>
+    </li>
+    <li><a href="/SassReference//hello/">Hello Sass!</a>
+      <ul>
+       <li><a href="/SassReference//hello/#cui-or-gui">コマンドかアプリか</a></li>            
+       <li><a href="/SassReference//hello/#sass-app">Sassに対応したアプリの紹介</a>
+         <ul>
+          <li><a href="/SassReference//hello/#Scout">Scout</a></li>
+          <li><a href="/SassReference//hello/index.html#Compass-app">Compass.app</a></li>
+          <li><a href="/SassReference//hello/#CodeKit">CodeKit</a></li>
+          <li><a href="/SassReference//hello/#LiveReload">LiveReload</a></li>
+         </ul>
+       </li>
+       <li>
+         <a href="/SassReference//hello/#cui-install">コマンドライン操作での導入方法</a>
+         <ul>
+           <li><a href="/SassReference//hello/#cui-install-ruby">Rubyのインスール</a></li>
+           <li><a href="/SassReference//hello/#cui-install-sass">Sassのインスール</a></li>
+           
+         </ul>
+       </li>
+        <li><a href="/SassReference//hello/use.html">Sassを使ってみよう</a>
+          <ul>
+              <li><a href="/SassReference//hello/use.html#extension-rule">記法と拡張子のルール</a></li>
+            <li><a href="/SassReference//hello/use.html#prepare">ディレクトリを作る</a></li>
+           <li><a href="/SassReference//hello/use.html#compile">コンパイル</a></li>
+           <li><a href="/SassReference//hello/use.html#wath-mode">Watchモード</a>
+             <ul><li><a href="/SassReference//hello/use.html#try-watch">何か書いてみる</a></li></ul>
+           </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="/SassReference//basic/">基本</a>
+      <ul>
+          <li><a href="#import">@import</a>
+              <ul>
+                  <li><a href="/SassReference//basic/#import-rule">有効な条件</a></li>
+                  <li><a href="/SassReference//basic/#partial">ファイル名先頭にアンダースコアを付けるルール（partial）</a></li>
+                  <li><a href="/SassReference//basic/#multiple">複数指定</a></li>
+                  <li><a href="/SassReference//basic/#interpolation">変数と文字列補完</a></li>
+                  <li><a href="/SassReference//basic/#nested-import">@importのネスト</a></li>
+              </ul>
+          </li>
+          <li><a href="/SassReference//basic/#comments">コメント</a></li>
+          <li><a href="/SassReference//basic/#encodings">文字コードの指定</a>
+              <ul>
+                  <li><a href="/SassReference//basic/#windows-issue">Windows環境におけるRuby
+                      の外部エンコーディング問題</a></li>
+              </ul>
+          </li>
+          <li><a href="/SassReference//basic/#nested-rules">ネスト</a>
+              <ul>
+                  <li><a href="/SassReference//basic/#nest-property">プロパティのネスト</a></li>
+                  <li><a href="/SassReference//basic/#referencing-parent-selectors">親のセレクタを参照する</a></li>
+              </ul>
+          </li>
+      </ul>
+      </li>
+      <li>
+          <a href="/SassReference//sass-script/">SassScript</a>
+        <ul>
+        <li><a href="/SassReference//sass-script/#data-types">データ型</a></li>
+        <li><a href="/SassReference//sass-script/#variables">変数</a>
+            <ul>
+                <li><a href="/SassReference//sass-script/#variables-scope">変数の有効範囲</a></li>
+            </ul>
+        </li>
+        <li><a href="/SassReference//sass-script/operations/number.html">数値の操作</a>
+            <ul>
+                <li><a href="/SassReference//sass-script/operations/number.html#division-and-slash">割り算とスラッシュ</a></li>
+                <li><a href="/SassReference//sass-script/operations/number.html#unit-function">単位を扱う関数</a></li>
+            </ul>
+        </li>
+        <li><a href="/SassReference//sass-script/operations/string.html">文字列の操作</a>
+            <ul>
+                <li><a href="/SassReference//sass-script/operations/string.html#quote-function">引用符の有無を操作する</a></li>
+            </ul>
+        </li>
+        <li><a href="/SassReference//sass-script/interpolation.html">補完：#{}</a>
+            <ul>
+                <li><a href="/SassReference//sass-script/interpolation.html#at-rules">@規則での利用</a></li>
+                <li><a href="/SassReference//sass-script/interpolation.html#attribute-selector">属性セレクタでの利用</a></li>
+            </ul>
+        </li>
+        </ul>
+      </li>
+      <li><a href="">＠ルール</a>
+          <ul>
+            <li><a href="">@mixin</a></li>
+            <li><a href="">@function</a></li>
+            <li><a href="">@extend</a></li>
+            <li><a href="">@debug</a></li>
+              <li><a href="">@warn</a></li>
+          </ul>
+        </li>
+      <li><a href="">出力スタイルの変更</a></li>
+  </ul>
+</nav>
+    </div>
+    <footer id="global-footer" role="contentinfo">
+  
+  <dl id="status-info">
+    <dt>Created</dt>
+    <dd><time class="created" itemprop="dateCreated">2012-12-01</time></dd>
+    
+  </dl>
+  
+  <address class="vcard" itemscope="" itemtype="http://schema.org/Person">
+    <p class="copyright">&copy; 2012 <span itemprop="name">Tenderfeel.</span>
+      <a href="http://twitter.com/Tenderfeel" class="icon twitter" itemprop="url"><img src="/SassReference//images/twitter-bird.png" alt="Twitter"></a>
+      <a href="http://tenderfeel.xsrv.jp/" title="WebTecNote" class="icon home" itemprop="url"><img src="/SassReference//images/home.png" alt="Home"></a>
+      <span class="powerd">Powerd by Mootools, Sass and Compass.</span></p>
+  </address>
+</footer>
+  </div>
+  <script src="//ajax.googleapis.com/ajax/libs/mootools/1.4.5/mootools-yui-compressed.js"></script>
+  <script src="/SassReference//js/main.js"></script>
+  <script src="/SassReference//js/prettify/prettify.js"></script>
+
+</body>
+</html>
