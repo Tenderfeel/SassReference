@@ -42,8 +42,6 @@
         throw new Error('[mooNav] Element is not found.');
 
       }
-      
-      
       window.addEvent('scroll', this.watch.bind(this));
     },
     
@@ -54,10 +52,8 @@
       if (document.body.scrollTop > this.coordinates.height) {
         this.step = Math.round(document.body.scrollTop / this.coordinates.height);
       }
-      console.log(this.step, this.coordinates)
     },
-    
-    
+
     watch: function(e) {
       var scrollTop = document.body.scrollTop;
       
@@ -71,12 +67,12 @@
       }
       
       this.diff = scrollTop;
-      console.log(this.step, this.coordinates.height * this.step, (this.coordinates.height * (this.step - 1)))
-      console.log(document.body.scrollTop, this.coordinates);
+      //console.log(this.step, this.coordinates.height * this.step, (this.coordinates.height * (this.step - 1)))
+      //console.log(document.body.scrollTop, this.coordinates);
       
       
       if (scrollTop >= (this.coordinates.height * this.step) && (this.step < this.totalStep)) {
-        console.log('set+')
+        //console.log('set+')
         this.element.setStyles({
           '-webkit-transform':'translateY(' + (this.coordinates.height * this.step) + 'px)'
         });
@@ -84,7 +80,7 @@
       }
       
       if (scrollTop <= (this.coordinates.height * (this.step - 1))) {
-        console.log('set-')
+        //console.log('set-')
         this.element.setStyles({
           '-webkit-transform':'translateY(' + (this.coordinates.height * (this.step - 1)) + 'px)'
         });

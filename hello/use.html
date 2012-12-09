@@ -30,7 +30,7 @@ date: 2012-12-1
     <tbody>
       <tr>
         <td>
-<pre class="prettyprint lang-css"><code>#main {
+<pre class="prettyprint lang-css noLabel"><code>#main {
   color: blue;
   font-size: 0.3em;
 }
@@ -44,7 +44,7 @@ date: 2012-12-1
 }</code></pre>
         </td>
         <td>
-<pre class="prettyprint lang-scss"><code>
+<pre class="prettyprint lang-scss noLabel"><code>
 #main {
   color: blue;
   font-size: 0.3em;
@@ -61,7 +61,7 @@ date: 2012-12-1
 }</code></pre>
         </td>
         <td>
-<pre class="prettyprint lang-sass"><code>
+<pre class="prettyprint lang-sass noLabel"><code>
 #main
   color: blue
   font-size: 0.3em
@@ -122,7 +122,7 @@ date: 2012-12-1
   <a href="http://sass-lang.com/editors.html" class="external-link" rel="nofollow">http://sass-lang.com/editors.html</a></p>
   <p>いきなり何か書けと言われても無理な話だと思うので、ファイルに次のソースをコピペしてみてください。</p>
 
-<pre class="prettyprint lang-scss"><code>$color:blue;
+<pre class="prettyprint lang-scss" data-type="SCSS"><code>$color:blue;
 $background:#FFF;
 
 #main {
@@ -163,7 +163,7 @@ $background:#FFF;
   </pre>
   <p>※以降のサンプルでは見間違いを防ぐ為にコロンで区切る書き方をします。</p>
   <p>ファイルの指定はコマンドライン（ターミナル）のルートからのパスになるので、サンプルプロジェクトがルートだとした場合のコマンドはこのようになります。</p>
-  <pre class="prettyprint lang-sh">
+  <pre class="prettyprint lang-sh" data-type="Command">
   /SassSample
   $ sass sass/style.scss:css/style.css
   </pre>
@@ -173,7 +173,7 @@ $background:#FFF;
   <img src="../images/hello/compile-2.png" alt="コンパイル後のサンプルプロジェクト">
   </figure>
   <p>style.cssを開くと、サンプルソースがコンパイルされて次のように変身しているはずです。</p>
-<pre class="prettyprint lang-css"><code>#main {
+<pre class="prettyprint lang-css" data-type="Compiled CSS"><code>#main {
   background: white;
   color: blue;
   font-size: 1em; }
@@ -188,12 +188,12 @@ $background:#FFF;
     コンパイル後のスタイルはオプションを指定することで4種類から選ぶことができます。が、ここでは省略。
   </p>
   <p>一番圧縮されるオプションを指定したコマンドはこちら。</p>
-<pre class="prettyprint lang-sh">
+<pre class="prettyprint lang-sh" data-type="Command">
 /SassSample
 $ sass -t compressed sass/style.scss css/style-min.css
 </pre>
   <p>コンパイルを実行すると無駄な所が全て除去されて１行にまとめられます。</p>
-<pre class="prettyprint lang-css"><code>#main{background:#fff;color:blue;font-size:1em}#main a{font-weight:bold;font-family:Arial, sans-serif;color:#7f60e5}#main a:hover{color:#c6b8f3}</code></pre>
+<pre class="prettyprint lang-css" data-type="Compiled CSS"><code>#main{background:#fff;color:blue;font-size:1em}#main a{font-weight:bold;font-family:Arial, sans-serif;color:#7f60e5}#main a:hover{color:#c6b8f3}</code></pre>
   <p>作成中は未圧縮、リリースは圧縮と、状況でCSSを分けるときに便利だと思います。</p>
 </section>
 
@@ -204,12 +204,12 @@ $ sass -t compressed sass/style.scss css/style-min.css
 そこでSassではファイルの更新を監視して、変更があった時に自動でコンパイルしてくれるコマンドが用意されています。</p>
 
   <p>ファイル名を直接指定する場合:</p>
-<pre class="prettyprint lang-sh">
+<pre class="prettyprint lang-sh" data-type="Command">
 /SassSample
 $ sass --watch sass/style.scss:css/style.css
 </pre>
   <p>ディレクトリごと見張る場合:</p>
-<pre class="prettyprint lang-sh">
+<pre class="prettyprint lang-sh" data-type="Command">
 /SassSample
 $ sass --watch sass:css
 </pre>

@@ -914,7 +914,7 @@ section pre {
   padding: 1em;
 }
 section .prettyprint {
-  margin-top: 30px;
+  padding-top: 30px;
   border: solid 1px #888;
   background: #eaeaea;
   position: relative;
@@ -922,26 +922,26 @@ section .prettyprint {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-section .prettyprint::before {
+section .prettyprint:not(.noLabel)::before {
   content: attr(data-type);
   position: absolute;
-  top: -20px;
+  top: 0;
   left: 0;
   height: 20px;
   line-height: 20px;
   padding: 0 0.5em;
   display: block;
-  background: #888;
+  background: rgba(0, 0, 0, 0.3);
   color: #fff;
   font-family: Arial, sans-serif;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  -webkit-border-radius: 3px 3px 0 0;
-  -moz-border-radius: 3px 3px 0 0;
-  -ms-border-radius: 3px 3px 0 0;
-  -o-border-radius: 3px 3px 0 0;
-  border-radius: 3px 3px 0 0;
+  -webkit-border-radius: 0 0 3px 0;
+  -moz-border-radius: 0 0 3px 0;
+  -ms-border-radius: 0 0 3px 0;
+  -o-border-radius: 0 0 3px 0;
+  border-radius: 0 0 3px 0;
 }
 section pre.result {
   background: #efefef;

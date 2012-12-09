@@ -87,26 +87,26 @@ section {
     padding: 1em;
   }
   .prettyprint {
-    margin-top: 30px;
+    padding-top: 30px;
     border:solid 1px #888;
     background:darken(#efefef, 2%);
     position: relative;
     @include box-sizing(border-box);
 
-    &::before {
+    &:not(.noLabel)::before {
       content:attr(data-type);
       position:absolute;
-      top:-20px;
+      top:0;
       left:0;
       height:20px;
       line-height:20px;
       padding:0 0.5em;
       display:block;
-      background:#888;
+      background:rgba(0,0,0,0.3);
       color:#fff;
       font-family:Arial, sans-serif;
       @include box-sizing(border-box);
-      @include border-radius(3px 3px 0 0);
+      @include border-radius(0 0 3px 0);
     }
   }
   pre.result {

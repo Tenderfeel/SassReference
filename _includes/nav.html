@@ -46,7 +46,7 @@
     <li>
       <a href="{{ site.url }}/basic/">基本</a>
       <ul>
-          <li><a href="#import">@import</a>
+          <li><a href="{{ site.url }}/basic/#import">@import</a>
               <ul>
                   <li><a href="{{ site.url }}/basic/#import-rule">有効な条件</a></li>
                   <li><a href="{{ site.url }}/basic/#partial">ファイル名先頭にアンダースコアを付けるルール（partial）</a></li>
@@ -98,7 +98,7 @@
         </li>
         </ul>
       </li>
-      <li><a href="">＠ルール</a>
+      {% comment %}<li><a href="">＠ルール</a>
           <ul>
             <li><a href="">@mixin</a></li>
             <li><a href="">@function</a></li>
@@ -107,6 +107,6 @@
               <li><a href="">@warn</a></li>
           </ul>
         </li>
-      <li><a href="">出力スタイルの変更</a></li>
+      <li><a href="">出力スタイルの変更</a></li>{% endcomment %}
   </ul>
 </nav>
