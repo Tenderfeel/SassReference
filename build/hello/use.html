@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html itemscope="" itemid="" itemtype="http://schema.org/WebPage" xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title itemprop="name">Sassを使ってみよう - Sassオレオレリファレンス</title>
+    
+    <meta name="description" content="Sassのインストールが終わっている前提で、ディレクトリとファイルのルールからコンパイルまでの説明を書いています。">
+    
+    
+    <meta name="keywords" content="Sass, SASS, SCSS, sass, CSS, stylesheet, stylesheets, メタ言語, プリプロセッサ, リファレンス, 日本語リファレンス">
+    
+    <link href="/SassReference//css/style.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/SassReference//css/print.css" media="print" rel="stylesheet" type="text/css">
+    <!--[if IE]>
+      <link href="/SassReference//css/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="/SassReference//js/prettify/prettify.css" media="print" rel="stylesheet" type="text/css">
+    
+    
+    
+  </head>
+<body>
+  <div id="wrapper">
+  <!--[if lt IE 7]>
+  <p class="chromeframe">あなたがお使いのブラウザは<strong>計り知れない古さ</strong>です。 今すぐ<a href="http://browsehappy.com/">アップグレード</a> するか <a href="http://www.google.com/chromeframe/?redirect=true">Internet Explorer用のプラグイン</a>をインストールしましょう。世界が変わりますよ！ </p>
+  <![endif]-->
+    <header id="global-header">
+
+    <p class="siteName"><a href="/SassReference//">Sassオレオレリファレンス</a></p>
+
+</header>
+    <div id="container">
+      <div id="main"><h1 class="pageName">Sassを使ってみよう</h1>
+
+<ul xmlns="http://www.w3.org/1999/xhtml" class="toc" temprop="http://purl.org/dc/terms/tableOfContents">
+  <li><a href="#extension-rule">記法と拡張子のルール</a></li>
+    <li><a href="#prepare">ディレクトリを作る</a></li>
+ <li><a href="#compile">コンパイル</a></li>
+ <li><a href="#wath-mode">Watchモード</a>
+   <ul><li><a href="#try-watch">何か書いてみる</a></li></ul>
+ </li>
+</ul>
+
+<section id="extension-rule">
+ <h1>記法と拡張子のルール</h1>
+  <p>Sassには記法が２種類あって、その名称と同じ拡張子をファイルにつけるのが慣例になっています。<br>
+  公式サイトのドキュメントなどで大文字で書いてあるSASS、SCSSは記法の略称です。<br>
+  以下は記法を表にまとめたものです。</p>
+  <table class="pretty">
+    <thead>
+      <tr>
+        <th scope="col">CSS</th>
+        <th scope="col">SCSS</th>
+        <th scope="col">SASS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+<pre class="prettyprint lang-css"><code>#main {
+  color: blue;
+  font-size: 0.3em;
+}
+#main a {
+  font: {
+  weight: bold;
+  family: serif;
+}
+#main a:hover {
+  background-color: #eee;
+}</code></pre>
+        </td>
+        <td>
+<pre class="prettyprint lang-scss"><code>
+#main {
+  color: blue;
+  font-size: 0.3em;
+ 
+  a {
+    font: {
+      weight: bold;
+      family: serif;
+    }
+    &:hover {
+      background-color: #eee;
+    }
+  }
+}</code></pre>
+        </td>
+        <td>
+<pre class="prettyprint lang-sass"><code>
+#main
+  color: blue
+  font-size: 0.3em
+ 
+  a
+    font:
+      weight: bold
+      family: serif
+    &:hover
+      background-color: #eee</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <dl>
+    <dt>SCSS</dt>
+    <dd>
+      <p>Sassy CSSを略してSCSS。Sassはこちらの記法が今は一般的です。<br>
+        ぱっと見CSSとほぼ同じなのがお分かり頂けるでしょうか。素のCSSと似たような書き方をするのが特徴です。<br>
+        CSS3の他にも古いIEのFilterやハック、ベンダー特有の構文もCSSの書き方そのまま利用できるので、初心者にもやさしく読みやすい記法です。</p>
+     
+    </dd>
+      <dt>SASS</dt>
+      <dd>
+      <p>もともとSassはこちらの記法しか出来なかったので、リファレンスでも「older syntax」と説明されています。<br>
+      ブロックを表す中括弧と末尾のセミコロンを省略でき、タブまたはスペースで入れ子を表現するため、もともとそういう書き方に慣れている人はこちらの方が見やすく感じるかもしれません。<br>
+      Mixinも省略できてしまうので、読み慣れてないと理解しづらく、SCSSよりも難易度は高めです。</p>
+      </dd>
+   </dl>
+    <h3>ポイント</h3>
+  <ul>
+      <li><strong>拡張子と同じ記法しか使えない。</strong>（１つのファイルの中に２つの記法を混在させるとエラーになる）</li>
+      <li>拡張子が混在したファイル群は同時にコンパイルできる</li>
+      <li>SCSSとSASSは相互にコンバートできる</li>
+  </ul>
+    </section>
+
+    <section id="prepare">
+        <h1>ディレクトリを作る</h1>
+        <p>まずはファイルを入れるディレクトリを作りましょう。<br>
+            そのままsassというディレクトリ名が分かりやすくていいと思います。<br>
+        （ディレクトリには特にルールはないので好きな名前をつけても大丈夫です）</p>
+        <figure>
+            <img src="../images/hello/prepare-1.png" alt="Create directory of Sass">
+            <figcaption>サンプルのプロジェクトにディレクトリを作ってみた図</figcaption>
+        </figure>
+        <p>ディレクトリが出来たらさっそくSassファイルを作ります。</p>
+</section>
+    <section>
+        <h1>ファイルを作る</h1>
+    <p>ここではSCSSの方で説明を進めますので、sassディレクトリにstyle.scss ファイルを作成してください。</p>
+   <figure>
+     <img src="../images/hello/prepare-2.png" alt="Create file of scss">
+   </figure>
+   <p>ファイルを作ったらエディタで開いてください。<br>
+  Sassに対応していてカラーリングしてくれるものがあればいいのですが、無くてもテキストエディタなら大丈夫です。<br>
+  対応しているエディタについては公式サイトの一覧が詳しいです。<br>
+  <a href="http://sass-lang.com/editors.html" class="external-link" rel="nofollow">http://sass-lang.com/editors.html</a></p>
+  <p>いきなり何か書けと言われても無理な話だと思うので、ファイルに次のソースをコピペしてみてください。</p>
+
+<pre class="prettyprint lang-scss"><code>$color:blue;
+$background:#FFF;
+
+#main {
+  background:$background;
+  color: $color;
+  font-size: 1em;
+ 
+  a {
+    $link-color:mix($color, pink);
+    font: {
+      weight: bold;
+      family: Arial, sans-serif;
+    }
+    color: $link-color;
+    &:hover {
+      color: lighten($link-color, 20%);
+    }
+  }
+}</code></pre>
+</section>
+
+<section id="compile">
+  <h1>コンパイル</h1>
+  <p>いよいよstyle.scssをコンパイルしてstyle.cssファイルを作ります。<br>
+     コンパイルしたCSSファイルはCSSディレクトリに入れたいので、先にディレクトリを作っておきます。
+  </p>
+  <figure>
+     <img src="../images/hello/compile-1.png" alt="Create directory of CSS">
+  </figure>
+  <p>コマンドラインでのSassのコンパイルはコンパイル元とコンパイル後のファイル名を指定して行います。</p>
+   
+  <pre class="syntax">
+    sass オプション コンパイル元 コンパイル後
+  </pre>
+  <p>コンパイル元とコンパイル後の指定はコロンで区切っても大丈夫です。</p>
+  <pre class="syntax">
+    sass オプション コンパイル元:コンパイル後
+  </pre>
+  <p>※以降のサンプルでは見間違いを防ぐ為にコロンで区切る書き方をします。</p>
+  <p>ファイルの指定はコマンドライン（ターミナル）のルートからのパスになるので、サンプルプロジェクトがルートだとした場合のコマンドはこのようになります。</p>
+  <pre class="prettyprint lang-sh">
+  /SassSample
+  $ sass sass/style.scss:css/style.css
+  </pre>
+  <p>コマンドを叩いて実行してみてください。<br>
+    すぐにCSSディレクトリにstyle.cssファイルが作成されます。</p>
+  <figure>
+  <img src="../images/hello/compile-2.png" alt="コンパイル後のサンプルプロジェクト">
+  </figure>
+  <p>style.cssを開くと、サンプルソースがコンパイルされて次のように変身しているはずです。</p>
+<pre class="prettyprint lang-css"><code>#main {
+  background: white;
+  color: blue;
+  font-size: 1em; }
+  #main a {
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    color: #7f60e5; }
+    #main a:hover {
+      color: #c6b8f3; }</code></pre>
+  <p>むむ。なにやら不思議なスタイリングがされていますね。<br>
+    これはSassのデフォルトのスタイルで、入れ子で書かれた所をスペースで表現してあります。<br>
+    コンパイル後のスタイルはオプションを指定することで4種類から選ぶことができます。が、ここでは省略。
+  </p>
+  <p>一番圧縮されるオプションを指定したコマンドはこちら。</p>
+<pre class="prettyprint lang-sh">
+/SassSample
+$ sass -t compressed sass/style.scss css/style-min.css
+</pre>
+  <p>コンパイルを実行すると無駄な所が全て除去されて１行にまとめられます。</p>
+<pre class="prettyprint lang-css"><code>#main{background:#fff;color:blue;font-size:1em}#main a{font-weight:bold;font-family:Arial, sans-serif;color:#7f60e5}#main a:hover{color:#c6b8f3}</code></pre>
+  <p>作成中は未圧縮、リリースは圧縮と、状況でCSSを分けるときに便利だと思います。</p>
+</section>
+
+<section>
+  <h1 id="watch-mode">Watchモード</h1>
+  <p>メタ言語なのでコンパイルしなくちゃCSSファイルにならないんですが、<br>
+毎回毎回コマンド打つのはどんなにコマンド打つのに慣れていても面倒でしょう。<br>
+そこでSassではファイルの更新を監視して、変更があった時に自動でコンパイルしてくれるコマンドが用意されています。</p>
+
+  <p>ファイル名を直接指定する場合:</p>
+<pre class="prettyprint lang-sh">
+/SassSample
+$ sass --watch sass/style.scss:css/style.css
+</pre>
+  <p>ディレクトリごと見張る場合:</p>
+<pre class="prettyprint lang-sh">
+/SassSample
+$ sass --watch sass:css
+</pre>
+  <p>このコマンドを実行すると、CSSファイルが指定した場所・ファイル名で作成されます。<br>
+既に同名のファイルが存在する場合は上書きになります。</p>
+  <figure>
+   <img src="../images/hello/compile-3.png" alt="sassディレクトリはSassに監視されています…">
+  </figure>
+  <p>監視を終了する場合はWindowsもMacもCtrl+Cです。<br>
+    オプションを変更する時は一度監視を終了してから設定し直します。
+  </p>
+  <section id="try-watch">
+    <h2>何か書いてみる</h2>
+    <p>style.scss に適当なスタイルを書いて保存をすると、<br>
+    watchコマンドが効いてCSSファイルへ反映されるので試してみてください。</p>
+    <figure>
+     <img src="../images/hello/compile-4.png" alt="Change detected to:が更新されたファイル">
+    </figure>
+  </section>
+</section>
+
+
+<div id="back-to-pagetop"><a href="#">ページのトップに戻る</a></div>
+</div>
+      <nav id="global-nav">
+  <ul class="nav">
+    <li><a href="/SassReference//" data-target="#home">HOME</a></li>
+    <li><a href="/SassReference//first.html">はじめに</a>
+      <ul>
+        <li><a href="/SassReference//first.html#first">Sassと愉快な仲間たち</a>
+          <ul>
+            <li><a href="/SassReference//first.html#introduction-of-fellow">仲間の紹介</a></li>
+          </ul>
+        </li>
+        <li><a href="/SassReference//first.html#recommended-reason">Sass がおすすめなたった一つの理由</a></li>
+        <li><a href="/SassReference//first.html#try">さくっと手触りを試すには？</a></li>
+      </ul>
+    </li>
+    <li><a href="/SassReference//hello/">Hello Sass!</a>
+      <ul>
+       <li><a href="/SassReference//hello/#cui-or-gui">コマンドかアプリか</a></li>            
+       <li><a href="/SassReference//hello/#sass-app">Sassに対応したアプリの紹介</a>
+         <ul>
+          <li><a href="/SassReference//hello/#Scout">Scout</a></li>
+          <li><a href="/SassReference//hello/index.html#Compass-app">Compass.app</a></li>
+          <li><a href="/SassReference//hello/#CodeKit">CodeKit</a></li>
+          <li><a href="/SassReference//hello/#LiveReload">LiveReload</a></li>
+         </ul>
+       </li>
+       <li>
+         <a href="/SassReference//hello/#cui-install">コマンドライン操作での導入方法</a>
+         <ul>
+           <li><a href="/SassReference//hello/#cui-install-ruby">Rubyのインスール</a></li>
+           <li><a href="/SassReference//hello/#cui-install-sass">Sassのインスール</a></li>
+           
+         </ul>
+       </li>
+        <li><a href="/SassReference//hello/use.html">Sassを使ってみよう</a>
+          <ul>
+              <li><a href="/SassReference//hello/use.html#extension-rule">記法と拡張子のルール</a></li>
+            <li><a href="/SassReference//hello/use.html#prepare">ディレクトリを作る</a></li>
+           <li><a href="/SassReference//hello/use.html#compile">コンパイル</a></li>
+           <li><a href="/SassReference//hello/use.html#wath-mode">Watchモード</a>
+             <ul><li><a href="/SassReference//hello/use.html#try-watch">何か書いてみる</a></li></ul>
+           </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="/SassReference//basic/">基本</a>
+      <ul>
+          <li><a href="#import">@import</a>
+              <ul>
+                  <li><a href="/SassReference//basic/#import-rule">有効な条件</a></li>
+                  <li><a href="/SassReference//basic/#partial">ファイル名先頭にアンダースコアを付けるルール（partial）</a></li>
+                  <li><a href="/SassReference//basic/#multiple">複数指定</a></li>
+                  <li><a href="/SassReference//basic/#interpolation">変数と文字列補完</a></li>
+                  <li><a href="/SassReference//basic/#nested-import">@importのネスト</a></li>
+              </ul>
+          </li>
+          <li><a href="/SassReference//basic/#comments">コメント</a></li>
+          <li><a href="/SassReference//basic/#encodings">文字コードの指定</a>
+              <ul>
+                  <li><a href="/SassReference//basic/#windows-issue">Windows環境におけるRuby
+                      の外部エンコーディング問題</a></li>
+              </ul>
+          </li>
+          <li><a href="/SassReference//basic/#nested-rules">ネスト</a>
+              <ul>
+                  <li><a href="/SassReference//basic/#nest-property">プロパティのネスト</a></li>
+                  <li><a href="/SassReference//basic/#referencing-parent-selectors">親のセレクタを参照する</a></li>
+              </ul>
+          </li>
+      </ul>
+      </li>
+      <li>
+          <a href="/SassReference//sass-script/">SassScript</a>
+        <ul>
+        <li><a href="/SassReference//sass-script/#data-types">データ型</a></li>
+        <li><a href="/SassReference//sass-script/#variables">変数</a>
+            <ul>
+                <li><a href="/SassReference//sass-script/#variables-scope">変数の有効範囲</a></li>
+            </ul>
+        </li>
+        <li><a href="/SassReference//sass-script/operations/number.html">数値の操作</a>
+            <ul>
+                <li><a href="/SassReference//sass-script/operations/number.html#division-and-slash">割り算とスラッシュ</a></li>
+                <li><a href="/SassReference//sass-script/operations/number.html#unit-function">単位を扱う関数</a></li>
+            </ul>
+        </li>
+        <li><a href="/SassReference//sass-script/operations/string.html">文字列の操作</a>
+            <ul>
+                <li><a href="/SassReference//sass-script/operations/string.html#quote-function">引用符の有無を操作する</a></li>
+            </ul>
+        </li>
+        <li><a href="/SassReference//sass-script/interpolation.html">補完：#{}</a>
+            <ul>
+                <li><a href="/SassReference//sass-script/interpolation.html#at-rules">@規則での利用</a></li>
+                <li><a href="/SassReference//sass-script/interpolation.html#attribute-selector">属性セレクタでの利用</a></li>
+            </ul>
+        </li>
+        </ul>
+      </li>
+      <li><a href="">＠ルール</a>
+          <ul>
+            <li><a href="">@mixin</a></li>
+            <li><a href="">@function</a></li>
+            <li><a href="">@extend</a></li>
+            <li><a href="">@debug</a></li>
+              <li><a href="">@warn</a></li>
+          </ul>
+        </li>
+      <li><a href="">出力スタイルの変更</a></li>
+  </ul>
+</nav>
+    </div>
+    <footer id="global-footer" role="contentinfo">
+  
+  <dl id="status-info">
+    <dt>Created</dt>
+    <dd><time class="created" itemprop="dateCreated">2012-12-01</time></dd>
+    
+  </dl>
+  
+  <address class="vcard" itemscope="" itemtype="http://schema.org/Person">
+    <p class="copyright">&copy; 2012 <span itemprop="name">Tenderfeel.</span>
+      <a href="http://twitter.com/Tenderfeel" class="icon twitter" itemprop="url"><img src="/SassReference//images/twitter-bird.png" alt="Twitter"></a>
+      <a href="http://tenderfeel.xsrv.jp/" title="WebTecNote" class="icon home" itemprop="url"><img src="/SassReference//images/home.png" alt="Home"></a>
+      <span class="powerd">Powerd by Mootools, Sass and Compass.</span></p>
+  </address>
+</footer>
+  </div>
+  <script src="//ajax.googleapis.com/ajax/libs/mootools/1.4.5/mootools-yui-compressed.js"></script>
+  <script src="/SassReference//js/main.js"></script>
+  <script src="/SassReference//js/prettify/prettify.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html itemscope="" itemid="" itemtype="http://schema.org/WebPage" xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title itemprop="name">SassScript - Sassオレオレリファレンス</title>
+    
+    <meta name="description" content="Sassをより使いこなすのに欠かせないSassScriptの解説です。Sass3.2.1版。">
+    
+    
+    <meta name="keywords" content="Sass, SASS, SCSS, sass, CSS, stylesheet, stylesheets, メタ言語, プリプロセッサ, リファレンス, 日本語リファレンス">
+    
+    <link href="/SassReference//css/style.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/SassReference//css/print.css" media="print" rel="stylesheet" type="text/css">
+    <!--[if IE]>
+      <link href="/SassReference//css/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="/SassReference//js/prettify/prettify.css" media="print" rel="stylesheet" type="text/css">
+    
+    
+    
+  </head>
+<body>
+  <div id="wrapper">
+  <!--[if lt IE 7]>
+  <p class="chromeframe">あなたがお使いのブラウザは<strong>計り知れない古さ</strong>です。 今すぐ<a href="http://browsehappy.com/">アップグレード</a> するか <a href="http://www.google.com/chromeframe/?redirect=true">Internet Explorer用のプラグイン</a>をインストールしましょう。世界が変わりますよ！ </p>
+  <![endif]-->
+    <header id="global-header">
+
+    <p class="siteName"><a href="/SassReference//">Sassオレオレリファレンス</a></p>
+
+</header>
+    <div id="container">
+      <div id="main"><h1 class="pageName">SassScript</h1>
+
+<div class="masthead">
+   <p>SassScriptとは、素のCSSでは出来ない算術や、プログラミングではおなじみの変数や関数といった、Sassが拡張している部分のこと。これは場所を問わず様々なところで活用できます。</p>
+    <ul xmlns="http://www.w3.org/1999/xhtml" class="toc" temprop="http://purl.org/dc/terms/tableOfContents">
+        <li><a href="#data-types">データ型</a></li>
+        <li><a href="#variables">変数</a>
+            <ul>
+                <li><a href="#variables-scope">変数の有効範囲</a></li>
+            </ul>
+        </li>
+        <li><a href="operations/number.html">数値の操作</a>
+            <ul>
+                <li><a href="operations/number.html#division-and-slash">割り算とスラッシュ</a></li>
+                <li><a href="operations/number.html#unit-function">単位を扱う関数</a></li>
+            </ul>
+        </li>
+        <li><a href="operations/string.html">文字列の操作</a>
+            <ul>
+                <li><a href="operations/string.html#quote-function">引用符の有無を操作する</a></li>
+            </ul>
+        </li>
+        <li><a href="interpolation.html">補完：#{}</a>
+            <ul>
+                <li><a href="interpolation.html#at-rules">@規則での利用</a></li>
+                <li><a href="interpolation.html#attribute-selector">属性セレクタでの利用</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<section id="data-types">
+    <h1>データ型</h1>
+    <p>プロパティに設定出来る値にはそれぞれ「型（タイプ）」があります。<br>
+        SassScriptは６つのデータ型をサポートしています。</p>
+
+    <table>
+        <thead>
+        <tr>
+            <th scope="col" colspan="2">名称</th>
+            <th scope="col">概要</th>
+            <th scope="col">例</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">数値</th>
+            <td>number</td>
+            <td>単位がついているものも含む</td>
+            <td>1.2、13、10px、1em、100%</td>
+        </tr>
+        <tr>
+            <th scope="row">文字列</th>
+            <td>string</td>
+            <td>引用符の有無は問わない</td>
+            <td>"foo"、'bar'、baz</td>
+        </tr>
+        <tr>
+            <th scope="row">色</th>
+            <td>color</td>
+            <td>色名、HEX、rgb、hslなどすべて</td>
+            <td>blue、#ffffff、rgba(0,0,0,0.6</td>
+        </tr>
+        <tr>
+            <th scope="row">真偽値</th>
+            <td>boolean</td>
+            <td>真＝true　偽＝false</td>
+            <td>true、false</td>
+        </tr>
+        <tr>
+            <th scope="row">null</th>
+            <td>null</td>
+            <td>何の値も含まれない状態。「ヌル」または「ナル」</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th scope="row">リスト</th>
+            <td>list</td>
+            <td>値をスペースやカンマで区切って並べたもの</td>
+            <td>0 auto、 10px 5px 15px 5px、Arial, Sans-serif</td>
+        </tr>
+        </tbody>
+    </table>
+    <p>データ型なんて大層な言い方をすると小難しそうな感じですが、使えるものに関しては素のCSSと同じです。<br>
+        上で挙げた中では真偽値とnullがScriptならではの型です。</p>
+
+    <section id="string-type">
+        <h2>string型</h2>
+        <p>CSSでは2種類の文字列を使用することができます。<br>
+        ひとつは <code>"Lucida Grande"</code> や <code>'http://sass-lang.com'</code>などの引用符がついているもの。<br>
+        もうひとつは、<code>bold</code>や<code>sans-serif</code>などの引用符がついていないものです。<br>Sassはどちらの文字列も認識するので、コンパイル後のCSSではSassファイルで使用したものがそのまま出力されます。</p>
+    </section>
+    <section>
+        <h2>list型</h2>
+        <p>marginやpaddingの指定でよくある<code>0 auto</code>や、フォントを指定するときの<code>Helvetica, Arial, sans-serif</code>といった、スペースやカンマで値を区切って並べたものがリスト型です。<br>
+            <small>（これを読んでいるあなたがプログラマなら配列をイメージしてください。ほとんど同じようなものです）</small><br>
+        では<code>font-weight:bold</code>や<code>margin:10px;</code>のようなものはどうなるのかというと、SassScriptは値が１つしかなくてもカウントしているので、これらも実際は「値が１つしかないリスト」となります。</p>
+        <p>リストそのものは機能を持っていませんが、Sassのリスト関数を使えば様々な操作ができるようになります。詳しくは関数のページに書いていますので、そちらを御覧ください。</p>
+    </section>
+</section>
+
+<section id="variables">
+    <h1>変数：$</h1>
+    <p>プログラミングではおなじみの「変数」が最も簡単なSassScriptです。<br>とはいえ、ノンプログラマな方には馴染みが薄いと思うのでどういうものかというのを簡単に紹介します。</p>
+    <p>変数をざっくり言うと「好きなものを入れておける箱」です。<br>
+    Sassの変数にはCSSのプロパティで指定する時と同じ「値」を入れることができます。</p>
+    <p>Sassで変数を使うときの構文は</p>
+    <pre class="syntax">$名前:値;</pre>
+    <p>です。</p>
+    <p>たとえばscssファイルに</p>
+<pre class="prettyprint"
+     data-type="SCSS"><code>$width: 960px;</code></pre>
+    <p>と書くと、「<code>$width</code>という名前の変数に、960pxという値を入れておく」という意味になります。<br>
+    変数に値を入れる時はCSSのプロパティに値を指定するのと同じ書き方をします。</p>
+    <p>名前が<code>$width</code>なので、この変数を横幅の指定で使ってみることにします。</p>
+<pre class="prettyprint" data-type="SCSS"><code>$width: 960px;
+
+#main {
+  width: $width;
+}</code></pre>
+    <p>使う時はそのまま値の代わりに変数を書くだけです。<br>
+        これで#mainのwidthには960pxが指定されたことになります。</p>
+    <p>もっと使ってみます。</p>
+<pre class="prettyprint" data-type="SCSS"><code>$width: 960px;
+
+header {
+  width:$width;
+  margin:0 auto;
+}
+
+#main {
+  width: $width;
+  margin:20px auto;
+}
+
+footer {
+  width:$width;
+  margin:0 auto;
+}</code></pre>
+    <p>同じ変数をheader、#main、footerのwidthに使ってみました。<br>
+    こういうソースに見覚えはありませんか？</p>
+<pre class="prettyprint result" data-type="Compiled CSS"><code>header {
+  width: 960px;
+  margin: 0 auto; }
+
+#main {
+  width: 960px;
+  margin: 20px auto; }
+
+footer {
+  width: 960px;
+  margin: 0 auto; }</code></pre>
+    <p>コンパイルすると変数を使った所に同じ値が出力されます。</p>
+    <p>変数の値を変えると、その変数を使っているプロパティの値が変更されます。<br>
+    サイトのレイアウトやデザインについての設定を変数にしてまとめておけば、諸々の変更作業の手間がかなり軽減されることでしょう。</p>
+    <p>使っているメタ言語が異なりますが、<a href="http://twitter.github.com/bootstrap/">Bootstrap</a>は変数の値を変えることで<a href="http://twitter.github.com/bootstrap/customize.html">カスタマイズ</a>ができるようになっています。</p>
+    <section id="variables-scope">
+        <h2>変数の有効範囲</h2>
+        <p>変数には有効範囲があります。<br>
+            前の例ではファイルの中のトップレベルの位置で<code>$width</code>という変数を書いた（という想定でした）ので、その下にあるheader、#main、footer全てで使うことができていました。 <br>
+        波カッコの中で変数を定義するとどうなるかというと、そのカッコの中が有効範囲になります。</p>
+        <p>
+        トップレベルで定義されたものを<strong>グローバル変数</strong>、波括弧の中で定義されたものを<strong>ローカル変数</strong>と呼びます。</p>
+        <p>以下は前のサンプルに新しいローカル変数<code>$color</code>を追加したものです。</p>
+<pre class="prettyprint" data-type="SCSS"><code>$width: 960px;
+
+header {
+  width:$width;
+  margin:0 auto;
+}
+
+#main {
+  $color:#333;   //<- New!
+  width: $width;
+  margin:20px auto;
+  color: $color; //<- Use!
+}
+
+footer {
+  width:$width;
+  margin:0 auto;
+  color: $color; //<- Use!
+}</code></pre>
+        <p>これをコンパイルするとfooterで変数を使用しているところで<q>Undefined variable: "$color"</q>というエラーが出ます。</p>
+        <p>#mainで定義した<code>$color</code>は、#mainのローカル変数となっているため波括弧の外からはアクセスできませんが、ネストではどれだけ入れ子が深くなっても利用することができます。</p>
+<pre class="prettyprint" data-type="SCSS"><code>$width: 960px;
+
+header {
+  width:$width;
+  margin:0 auto;
+}
+
+#main {
+  $color:#333;
+  width: $width;
+  margin:20px auto;
+  color: $color; //<- Use!
+
+  section {
+    p {
+      color: $color; //<- Use!
+
+      a:link {
+        color: $color;//<- Use!
+      }
+    }
+  }
+
+  blockquote {
+    color: $color; //<- Use!
+  }
+}
+
+footer {
+  width:$width;
+  margin:0 auto;
+}</code></pre>
+        <p>#mainでネストした中で変数を乱用してみました。<code>a:link</code>が一番深いですが、問題なくコンパイルできます。<
+            /p>
+<pre class="prettyprint result" data-type="Compiled CSS"><code>header {
+  width: 960px;
+  margin: 0 auto; }
+
+#main {
+  width: 960px;
+  margin: 20px auto;
+  color: #333333; }
+  #main section p {
+    color: #333333; }
+    #main section p a:link {
+      color: #333333; }
+  #main blockquote {
+    color: #333333; }
+
+footer {
+  width: 960px;
+  margin: 0 auto; }</code></pre>
+
+    </section>
+</section>
+
+
+
+<ul class="breadcrumb">
+  
+    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+      <a href="/SassReference//index.html" itemprop="url">
+        <span itemprop="title">HOME</span>
+      </a>
+    </li>
+  
+    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+      <a href="/SassReference//sass-script/index.html" itemprop="url">
+        <span itemprop="title">SassScript</span>
+      </a>
+    </li>
+  
+</ul>
+
+<div id="back-to-pagetop"><a href="#">ページのトップに戻る</a></div>
+</div>
+      <nav id="global-nav">
+  <ul class="nav">
+    <li><a href="/SassReference//" data-target="#home">HOME</a></li>
+    <li><a href="/SassReference//first.html">はじめに</a>
+      <ul>
+        <li><a href="/SassReference//first.html#first">Sassと愉快な仲間たち</a>
+          <ul>
+            <li><a href="/SassReference//first.html#introduction-of-fellow">仲間の紹介</a></li>
+          </ul>
+        </li>
+        <li><a href="/SassReference//first.html#recommended-reason">Sass がおすすめなたった一つの理由</a></li>
+        <li><a href="/SassReference//first.html#try">さくっと手触りを試すには？</a></li>
+      </ul>
+    </li>
+    <li><a href="/SassReference//hello/">Hello Sass!</a>
+      <ul>
+       <li><a href="/SassReference//hello/#cui-or-gui">コマンドかアプリか</a></li>            
+       <li><a href="/SassReference//hello/#sass-app">Sassに対応したアプリの紹介</a>
+         <ul>
+          <li><a href="/SassReference//hello/#Scout">Scout</a></li>
+          <li><a href="/SassReference//hello/index.html#Compass-app">Compass.app</a></li>
+          <li><a href="/SassReference//hello/#CodeKit">CodeKit</a></li>
+          <li><a href="/SassReference//hello/#LiveReload">LiveReload</a></li>
+         </ul>
+       </li>
+       <li>
+         <a href="/SassReference//hello/#cui-install">コマンドライン操作での導入方法</a>
+         <ul>
+           <li><a href="/SassReference//hello/#cui-install-ruby">Rubyのインスール</a></li>
+           <li><a href="/SassReference//hello/#cui-install-sass">Sassのインスール</a></li>
+           
+         </ul>
+       </li>
+        <li><a href="/SassReference//hello/use.html">Sassを使ってみよう</a>
+          <ul>
+              <li><a href="/SassReference//hello/use.html#extension-rule">記法と拡張子のルール</a></li>
+            <li><a href="/SassReference//hello/use.html#prepare">ディレクトリを作る</a></li>
+           <li><a href="/SassReference//hello/use.html#compile">コンパイル</a></li>
+           <li><a href="/SassReference//hello/use.html#wath-mode">Watchモード</a>
+             <ul><li><a href="/SassReference//hello/use.html#try-watch">何か書いてみる</a></li></ul>
+           </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="/SassReference//basic/">基本</a>
+      <ul>
+          <li><a href="#import">@import</a>
+              <ul>
+                  <li><a href="/SassReference//basic/#import-rule">有効な条件</a></li>
+                  <li><a href="/SassReference//basic/#partial">ファイル名先頭にアンダースコアを付けるルール（partial）</a></li>
+                  <li><a href="/SassReference//basic/#multiple">複数指定</a></li>
+                  <li><a href="/SassReference//basic/#interpolation">変数と文字列補完</a></li>
+                  <li><a href="/SassReference//basic/#nested-import">@importのネスト</a></li>
+              </ul>
+          </li>
+          <li><a href="/SassReference//basic/#comments">コメント</a></li>
+          <li><a href="/SassReference//basic/#encodings">文字コードの指定</a>
+              <ul>
+                  <li><a href="/SassReference//basic/#windows-issue">Windows環境におけるRuby
+                      の外部エンコーディング問題</a></li>
+              </ul>
+          </li>
+          <li><a href="/SassReference//basic/#nested-rules">ネスト</a>
+              <ul>
+                  <li><a href="/SassReference//basic/#nest-property">プロパティのネスト</a></li>
+                  <li><a href="/SassReference//basic/#referencing-parent-selectors">親のセレクタを参照する</a></li>
+              </ul>
+          </li>
+      </ul>
+      </li>
+      <li>
+          <a href="/SassReference//sass-script/">SassScript</a>
+        <ul>
+        <li><a href="/SassReference//sass-script/#data-types">データ型</a></li>
+        <li><a href="/SassReference//sass-script/#variables">変数</a>
+            <ul>
+                <li><a href="/SassReference//sass-script/#variables-scope">変数の有効範囲</a></li>
+            </ul>
+        </li>
+        <li><a href="/SassReference//sass-script/operations/number.html">数値の操作</a>
+            <ul>
+                <li><a href="/SassReference//sass-script/operations/number.html#division-and-slash">割り算とスラッシュ</a></li>
+                <li><a href="/SassReference//sass-script/operations/number.html#unit-function">単位を扱う関数</a></li>
+            </ul>
+        </li>
+        <li><a href="/SassReference//sass-script/operations/string.html">文字列の操作</a>
+            <ul>
+                <li><a href="/SassReference//sass-script/operations/string.html#quote-function">引用符の有無を操作する</a></li>
+            </ul>
+        </li>
+        <li><a href="/SassReference//sass-script/interpolation.html">補完：#{}</a>
+            <ul>
+                <li><a href="/SassReference//sass-script/interpolation.html#at-rules">@規則での利用</a></li>
+                <li><a href="/SassReference//sass-script/interpolation.html#attribute-selector">属性セレクタでの利用</a></li>
+            </ul>
+        </li>
+        </ul>
+      </li>
+      <li><a href="">＠ルール</a>
+          <ul>
+            <li><a href="">@mixin</a></li>
+            <li><a href="">@function</a></li>
+            <li><a href="">@extend</a></li>
+            <li><a href="">@debug</a></li>
+              <li><a href="">@warn</a></li>
+          </ul>
+        </li>
+      <li><a href="">出力スタイルの変更</a></li>
+  </ul>
+</nav>
+    </div>
+    <footer id="global-footer" role="contentinfo">
+  
+  <dl id="status-info">
+    <dt>Created</dt>
+    <dd><time class="created" itemprop="dateCreated">2012-12-01</time></dd>
+    
+  </dl>
+  
+  <address class="vcard" itemscope="" itemtype="http://schema.org/Person">
+    <p class="copyright">&copy; 2012 <span itemprop="name">Tenderfeel.</span>
+      <a href="http://twitter.com/Tenderfeel" class="icon twitter" itemprop="url"><img src="/SassReference//images/twitter-bird.png" alt="Twitter"></a>
+      <a href="http://tenderfeel.xsrv.jp/" title="WebTecNote" class="icon home" itemprop="url"><img src="/SassReference//images/home.png" alt="Home"></a>
+      <span class="powerd">Powerd by Mootools, Sass and Compass.</span></p>
+  </address>
+</footer>
+  </div>
+  <script src="//ajax.googleapis.com/ajax/libs/mootools/1.4.5/mootools-yui-compressed.js"></script>
+  <script src="/SassReference//js/main.js"></script>
+  <script src="/SassReference//js/prettify/prettify.js"></script>
+
+</body>
+</html>
