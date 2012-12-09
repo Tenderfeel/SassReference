@@ -2,10 +2,10 @@
   {% if page.date %}
   <dl id="status-info">
     <dt>Created</dt>
-    <dd><time class="created" itemprop="dateCreated">{{page.date | date_to_xmlschema }}</time></dd>
+    <dd><time class="created" itemprop="dateCreated">{{page.date }}</time></dd>
     {% if page.updated %}
     <dt>Updated</dt>
-    <dd><time class="modified" itemprop="dateModified">{{page.updated | date_to_xmlschema }}</time></dd>
+    <dd><time class="modified" itemprop="dateModified">{{page.updated }}</time></dd>
     {% endif %}
   </dl>
   {% endif %}
