@@ -112,7 +112,7 @@
     </section>
     <section id="interpolation">
         <h2>変数と文字列補完</h2>
-<p>補完機能として<code>#{}</code>が用意されていますが（後述）、<code>@improt</code>に対しても使用出来ます。</p>
+<p>補完機能として<code>#{}</code>が用意されていますが（後述）、<code>@import</code>に対しても使用出来ます。</p>
 <pre class="prettyprint" data-type="SCSS"><code>//unqoteは関数です
 $family: unquote("Droid+Sans");
 @import url("http://fonts.googleapis.com/css?family=\#{$family}");
@@ -123,7 +123,7 @@ $family: unquote("Droid+Sans");
     </section>
     <section id="nested-import">
         <h2>@importのネスト</h2>
-        <p>普通はCSSファイルのトップレベルの位置で使う<code>@improt</code>ですが、SassではCSSルールおよび@media ルール内に含めることも可能です。</p><p>以下はIDセレクタ内で<code>@improt</code>を使う例です。</p>
+        <p>普通はCSSファイルのトップレベルの位置で使う<code>@import</code>ですが、SassではCSSルールおよび@media ルール内に含めることも可能です。</p><p>以下はIDセレクタ内で<code>@import</code>を使う例です。</p>
 <pre class="prettyprint" data-type="_tags.scss"><code>#main {
 a {
   color: red;
@@ -148,7 +148,7 @@ section > p {
 #main section > p {
   margin: 1em 0; }
 </code></pre>
-    <p>セレクタやメディアクエリの中で<code>@improt
+    <p>セレクタやメディアクエリの中で<code>@import
     </code>を使うと、インポートしたファイルの中身がセレクタにネストされた状態で出力されます。
     </p>
     </section>
